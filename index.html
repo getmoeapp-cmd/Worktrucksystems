@@ -132,32 +132,35 @@ nav.links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
 .speedlines i:nth-child(1){width:56px}.speedlines i:nth-child(2){width:34px;background:var(--orange)}
 .speedlines i:nth-child(3){width:66px}.speedlines i:nth-child(4){width:26px}
 
-.iphone{position:relative;z-index:2;width:min(292px,82%);background:#0b0b0c;border:10px solid #17181a;border-radius:42px;padding:14px 12px 12px;box-shadow:0 26px 56px rgba(0,0,0,.38)}
-.iphone .bar{display:flex;justify-content:space-between;color:#e8e8e8;font-size:11px;padding:0 6px 12px;font-weight:600}
-.clock{text-align:center;color:#fff;margin-bottom:16px}
-.clock b{display:block;font-size:38px;font-weight:600;line-height:1;letter-spacing:-.02em}
-.clock span{font-size:12.5px;color:#cfcfcf}
-.ncard{background:#fff;border-radius:14px;padding:9px 12px;margin-bottom:9px;box-shadow:0 6px 18px rgba(0,0,0,.4);display:flex;align-items:center;gap:10px}
-.ncard .ic{width:26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
-.ncard .ttl{font-weight:700;font-size:13px;line-height:1.2}
-.ncard .sml{font-size:11px;color:#666}
-.ncard .tm{margin-left:auto;font-size:10px;color:#8b8b8b;align-self:flex-start}
-.arrow{text-align:center;color:var(--orange);font-size:15px;font-weight:700;margin:0 0 7px}
-.tbub{background:#fff;border-radius:14px;padding:10px 12px;margin-bottom:9px;font-size:12.5px;line-height:1.36;box-shadow:0 6px 18px rgba(0,0,0,.4)}
-.tbub .lnk{color:#0a7cff;text-decoration:underline}
-.tbub .tm{display:block;text-align:right;font-size:10px;color:#8b8b8b;margin-top:5px}
-.inbar{display:flex;align-items:center;gap:8px;border:1px solid #333;border-radius:999px;padding:7px 12px;margin-top:12px;color:#777;font-size:11.5px}
-.inbar .plus{color:#aaa;font-size:14px}
+.iphone{position:relative;z-index:2;width:min(300px,84%);background:#0a0a0b;border:.42em solid #1a1b1d;border-radius:2.6em;padding:.55em .5em .5em;box-shadow:0 1.6em 3.2em rgba(0,0,0,.42);display:flex;flex-direction:column;min-height:32em}
+.island{width:34%;height:1.55em;background:#000;border-radius:1em;position:absolute;left:50%;transform:translateX(-50%);top:.55em;z-index:3}
+.sbar{display:flex;justify-content:space-between;align-items:center;color:#fff;padding:.3em .85em 1.5em;font-size:1.02em;font-weight:600}
+.sbar .ic{letter-spacing:.06em;font-size:.9em}
+.ncard{background:#fff;border-radius:1.15em;padding:.75em .85em;margin:0 .25em .9em;box-shadow:0 .5em 1.4em rgba(0,0,0,.35);display:flex;align-items:flex-start;gap:.7em}
+.ncard .ic{width:2.5em;height:2.5em;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05em;flex:none}
+.ncard .nx{flex:1}
+.ncard .ttl{font-weight:700;font-size:1.22em;line-height:1.15;color:#111}
+.ncard .sml{font-size:1.1em;color:#666;margin-top:.05em}
+.ncard .tm{font-size:.98em;color:#8b8b8b}
+.arrow{text-align:center;color:var(--orange);font-size:1.5em;font-weight:700;margin:0 0 .75em}
+.tbub{background:#f2f2f2;color:#111;border-radius:1.1em;padding:.8em .95em;margin:0 3em .7em .25em;font-size:1.2em;line-height:1.45;box-shadow:0 .35em 1em rgba(0,0,0,.28)}
+.sentline{color:#8b8b8b;font-size:1.02em;margin:.15em 0 0 .5em}
+.phfill{flex:1;min-height:1.5em}
+.inbar{display:flex;align-items:center;gap:.7em;border:1px solid #35363a;border-radius:2em;padding:.7em 1em;margin:0 .25em .55em;color:#8b8b8b;font-size:1.1em}
+.inbar .plus{color:#aaa;font-size:1.2em}
+.homebar{width:34%;height:.3em;background:#5a5b5e;border-radius:1em;margin:0 auto}
 
-/* still by default (no JS / slow link / reduced motion) — animates only when .live is added in view */
+/* text-back sequence: static until .live, 16s loop with ~8s hold */
 .seq{opacity:1}
 .live .seq{animation-duration:16s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease}
 .live .s1{animation-name:sq1}.live .s2{animation-name:sq2}
 .live .s3{animation-name:sq3}.live .s4{animation-name:sq4}
+.live .s5{animation-name:sq5}
 @keyframes sq1{0%,6%{opacity:0;transform:translateY(10px)}11%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
 @keyframes sq2{0%,19%{opacity:0}24%,96%{opacity:1}99%,100%{opacity:0}}
 @keyframes sq3{0%,25%{opacity:0;transform:translateY(10px)}31%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
 @keyframes sq4{0%,41%{opacity:0;transform:translateY(10px)}47%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+@keyframes sq5{0%,50%{opacity:0}55%,96%{opacity:1}99%,100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.live .seq{animation:none!important;opacity:1!important;transform:none!important}}
 
 .sysbody .plate{font-family:'Barlow Semi Condensed',Arial,sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-size:15px;margin-bottom:6px}
@@ -274,6 +277,107 @@ nav.links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
 @media(prefers-reduced-motion:reduce){
   .live .qform,.live .qcur,.live .hotring,.live .qdone,.live .pnotif,.live .qv{animation:none!important}
   .qform,.pnotif{opacity:1}
+}
+
+/* ===== SYSTEM 02 SPEED-TO-LEAD PHONE (12s loop) ===== */
+.spstage{container-type:inline-size;display:flex;justify-content:center;width:100%}
+.spphone{position:relative;width:min(300px,88%);background:#111214;border:.9cqw solid #1a1b1d;border-radius:9cqw;padding:2.2cqw 2.2cqw 2.6cqw;box-shadow:0 6cqw 12cqw rgba(0,0,0,.35);font-size:2.35cqw;font-family:'Barlow',Arial,sans-serif;opacity:0}
+.live .spphone{animation:spin_ .9s ease both}
+@keyframes spin_{from{opacity:0;transform:translateY(2.5em)}to{opacity:1;transform:none}}
+.spisland{width:34%;height:1.9em;background:#000;border-radius:1em;margin:0 auto .9em}
+.splogo{text-align:center;margin-bottom:.35em}
+.splogo b{font-family:'Archivo Black',Arial,sans-serif;color:#fff;font-size:1.75em;letter-spacing:-.01em;text-transform:uppercase;line-height:1}
+.splogo i{display:block;font-style:normal;color:var(--orange);font-weight:700;letter-spacing:.42em;font-size:.95em;text-transform:uppercase;margin-top:.15em}
+.spkick{text-align:center;color:#9a9a9a;letter-spacing:.24em;text-transform:uppercase;font-size:.95em;margin-bottom:1.1em}
+
+.spcard{background:#1c1d20;border:1px solid #2b2c30;border-radius:1.1em;padding:1em;display:flex;gap:.9em;margin-bottom:1em}
+.spcard .gl{width:3.4em;height:3.4em;border-radius:.7em;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex:none}
+.spcard .lb{color:#fff;font-weight:700;text-transform:uppercase;font-size:1.12em;letter-spacing:.01em}
+.spcard .nm{color:#fff;font-size:1.5em;font-weight:600;line-height:1.15;margin:.05em 0 .3em}
+.spcard .mt{color:#c7c7c7;font-size:1.02em}
+.spcard .rc{color:#9a9a9a;font-size:1em;margin-top:.45em}
+
+.sppill{display:flex;align-items:center;justify-content:center;gap:.5em;border:1.5px solid var(--orange);color:var(--orange);border-radius:.7em;padding:.6em;font-weight:700;text-transform:uppercase;font-size:1.08em;letter-spacing:.02em;margin:0 auto 1.1em;width:88%}
+.sppill svg{width:1.5em;height:1.5em}
+.sppill circle,.sppill path{fill:none;stroke:var(--orange);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sppill circle{stroke-dasharray:64;stroke-dashoffset:64}
+.sppill path{stroke-dasharray:16;stroke-dashoffset:16}
+.live .sppill circle{animation:draw1 12s infinite both;animation-delay:.9s}
+.live .sppill path{animation:draw2 12s infinite both;animation-delay:.9s}
+@keyframes draw1{0%,11%{stroke-dashoffset:64}16%,93%{stroke-dashoffset:0}97%,100%{stroke-dashoffset:0}}
+@keyframes draw2{0%,15%{stroke-dashoffset:16}19%,93%{stroke-dashoffset:0}97%,100%{stroke-dashoffset:0}}
+
+.splabel{color:#8e8e8e;text-transform:uppercase;letter-spacing:.1em;font-size:.95em;margin-bottom:.5em}
+.sprow{display:flex;gap:.7em;align-items:flex-start;margin-bottom:.5em}
+.spav{width:2.8em;height:2.8em;border-radius:50%;background:#3a3b3f;color:#c8c8c8;display:flex;align-items:center;justify-content:center;font-size:1.05em;flex:none}
+.spbolt{width:2.8em;height:2.8em;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex:none}
+.spbub{background:#2a2b2e;color:#f0f0f0;border-radius:1em;padding:.75em .9em;font-size:1.2em;line-height:1.45}
+.spbub.out{background:var(--orange);color:#fff}
+.sptime{color:#8e8e8e;font-size:.98em;margin:.15em 0 .9em}
+.spmeta{display:flex;justify-content:flex-end;align-items:center;gap:.35em;color:#9a9a9a;font-size:.98em;margin:.15em 0 1em}
+.spmeta .tick{color:var(--orange);font-weight:700;letter-spacing:-.15em}
+
+.spcount{display:flex;align-items:center;justify-content:center;gap:.45em;background:#1c1d20;border:1px solid #2b2c30;border-radius:.7em;padding:.45em .8em;width:max-content;margin:0 auto 1em;color:#d8d8d8;font-size:1.05em;font-weight:600}
+.spcount .win{height:1.25em;overflow:hidden;line-height:1.25em}
+.spcount .win b{display:block;color:var(--orange);font-variant-numeric:tabular-nums}
+.live .spcount .win b{animation:tick10 12s infinite both;animation-delay:.9s}
+@keyframes tick10{
+  0%,29%{transform:translateY(0)}
+  37%,93%{transform:translateY(-1250%)}
+  97%,100%{transform:translateY(-1250%)}
+}
+
+.spfollow{display:flex;align-items:center;gap:.7em;background:#1c1d20;border:1px solid #2b2c30;border-radius:1em;padding:.85em 1em;color:#eaeaea;font-size:1.12em;font-weight:600}
+.spfollow .cl{color:var(--orange);font-size:1.3em}
+.spfollow em{margin-left:auto;font-style:normal;color:#8e8e8e}
+
+/* typing lines */
+.tl{display:block;overflow:hidden;white-space:nowrap;width:0}
+.live .anim,.live .tl{animation-duration:12s;animation-iteration-count:infinite;animation-fill-mode:both;animation-delay:.9s}
+.live .a-card{animation-name:sp_card}
+.live .a-pill{animation-name:sp_pop}
+.live .a-lab1{animation-name:sp_f17}
+.live .a-in{animation-name:sp_f17}
+.live .a-time{animation-name:sp_f27}
+.live .a-count{animation-name:sp_count}
+.live .a-lab2{animation-name:sp_f38}
+.live .a-out{animation-name:sp_f39}
+.live .a-meta{animation-name:sp_meta}
+.live .a-follow{animation-name:sp_follow}
+.live .i1{animation-name:ty18}.live .i2{animation-name:ty21}.live .i3{animation-name:ty24}
+.live .o1{animation-name:ty41}.live .o2{animation-name:ty44}.live .o3{animation-name:ty47}
+.live .o4{animation-name:ty50}.live .o5{animation-name:ty53}.live .o6{animation-name:ty56}
+.live .o7{animation-name:ty59}.live .o8{animation-name:ty62}
+
+@keyframes sp_card{0%,2%{opacity:0;transform:translateY(-1.2em);box-shadow:0 0 0 0 rgba(242,106,0,0)}
+  8%{opacity:1;transform:none;box-shadow:0 0 0 .5em rgba(242,106,0,.35)}
+  13%,93%{opacity:1;transform:none;box-shadow:0 0 0 0 rgba(242,106,0,0)}
+  97%,100%{opacity:0}}
+@keyframes sp_pop{0%,10%{opacity:0;transform:translateY(.8em)}15%,93%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes sp_f17{0%,17%{opacity:0}20%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_f27{0%,27%{opacity:0}30%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_count{0%,29%{opacity:0}31%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_f38{0%,38%{opacity:0}40%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_f39{0%,39%{opacity:0}41%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_meta{0%,64%{opacity:0}68%,93%{opacity:1}97%,100%{opacity:0}}
+@keyframes sp_follow{0%,71%{opacity:0;transform:translateY(1.2em)}76%,93%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes ty18{0%,18%{width:0;opacity:1}21%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty21{0%,21%{width:0;opacity:1}24%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty24{0%,24%{width:0;opacity:1}27%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty41{0%,41%{width:0;opacity:1}44%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty44{0%,44%{width:0;opacity:1}47%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty47{0%,47%{width:0;opacity:1}50%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty50{0%,50%{width:0;opacity:1}53%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty53{0%,53%{width:0;opacity:1}56%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty56{0%,56%{width:0;opacity:1}59%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty59{0%,59%{width:0;opacity:1}62%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+@keyframes ty62{0%,62%{width:0;opacity:1}65%,93%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+
+.anim{opacity:0}
+@media(prefers-reduced-motion:reduce){
+  .live .anim,.live .tl,.live .spphone,.live .spcount .win b,.live .sppill circle,.live .sppill path{animation:none!important}
+  .anim{opacity:1}.tl{width:100%}.spphone{opacity:1}
+  .sppill circle,.sppill path{stroke-dashoffset:0}
 }
 
 /* ===== TRADES ===== */
@@ -473,13 +577,63 @@ footer .row{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
         </ul>
         <a class="more" href="/systems.html#speed">See it step by step &rarr;</a>
       </div>
-      <div class="media">
-        <!-- VIDEO SLOT: swap placeholder for Loom embed when recorded
-        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;width:100%;">
-          <iframe src="https://www.loom.com/embed/LOOM_ID" title="Speed to Lead demo" frameborder="0" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>
+      <div class="spstage" id="sys02phone" aria-hidden="true">
+        <div class="spphone">
+          <div class="spisland"></div>
+          <div class="splogo"><b>WorkTruck</b><i>Systems</i></div>
+          <div class="spkick">Speed to Lead</div>
+
+          <div class="spcard anim a-card">
+            <div class="gl">&#127760;</div>
+            <div>
+              <div class="lb">New website lead</div>
+              <div class="nm">Sarah Martinez</div>
+              <div class="mt">Panel Upgrade &bull; Howard Beach, NY</div>
+              <div class="rc">Received 10 seconds ago</div>
+            </div>
+          </div>
+
+          <div class="sppill anim a-pill">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.4l3 3 6-6.4"/></svg>
+            Added to job board
+          </div>
+
+          <div class="splabel anim a-lab1">From website form</div>
+          <div class="sprow anim a-in">
+            <div class="spav">&#128100;</div>
+            <div class="spbub">
+              <span class="tl i1">I need to upgrade my</span>
+              <span class="tl i2">electrical panel. The house</span>
+              <span class="tl i3">is in Howard Beach.</span>
+            </div>
+          </div>
+          <div class="sptime anim a-time">10:24 AM</div>
+
+          <div class="spcount anim a-count">
+            <span>Replying in</span>
+            <span class="win"><b>00:00<br>00:01<br>00:02<br>00:03<br>00:04<br>00:05<br>00:06<br>00:07<br>00:08<br>00:09<br>00:10<br>00:10<br>00:10</b></span>
+          </div>
+
+          <div class="splabel anim a-lab2">Automatic reply sent</div>
+          <div class="sprow anim a-out">
+            <div class="spbolt">&#9889;</div>
+            <div class="spbub out">
+              <span class="tl o1">Hi Sarah &mdash; Mike from Queens</span>
+              <span class="tl o2">Electric here. Thanks for</span>
+              <span class="tl o3">reaching out about the panel</span>
+              <span class="tl o4">upgrade. Can you send the</span>
+              <span class="tl o5">property address and a quick</span>
+              <span class="tl o6">photo of the current panel?</span>
+              <span class="tl o7">I'll take a look and let you</span>
+              <span class="tl o8">know the next step.</span>
+            </div>
+          </div>
+          <div class="spmeta anim a-meta">Sent automatically &bull; 10 sec <span class="tick">&#10003;&#10003;</span></div>
+
+          <div class="spfollow anim a-follow">
+            <span class="cl">&#128337;</span> If no reply: follow-up in 30 min <em>&rsaquo;</em>
+          </div>
         </div>
-        -->
-        <p class="placeholder">Demo video coming &mdash; watch it answer a lead in ~10 seconds</p>
       </div>
     </div>
   </div>
@@ -491,22 +645,24 @@ footer .row{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
       <div class="pstage" id="sys01phone" aria-hidden="true">
         <div class="speedlines"><i></i><i></i><i></i><i></i></div>
         <div class="iphone">
-          <div class="bar"><span>9:41</span><span>&#9679;&#9679;&#9679;&#9679;</span></div>
-          <div class="clock"><b>10:47</b><span>Tuesday, May 13</span></div>
+          <div class="island"></div>
+          <div class="sbar"><span class="t">10:47</span><span class="ic">&#9646;&#9646;&#9646;&#9601; &#8767; &#9707;</span></div>
 
           <div class="ncard seq s1">
-            <div class="ic">&#9742;</div>
-            <div><div class="ttl">Missed Call</div><div class="sml">New Customer</div></div>
+            <div class="ic">&#128382;</div>
+            <div class="nx"><div class="ttl">Missed Call</div><div class="sml">New Customer</div></div>
             <span class="tm">10:47 AM</span>
           </div>
 
           <div class="arrow seq s2">&#8595;</div>
 
-          <div class="tbub seq s3">Hey, this is Mike with Queens Roll-Off &mdash; sorry I missed you. I'm finishing up a drop-off.<span class="tm">10:47 AM</span></div>
+          <div class="tbub seq s3">Hey, this is Mike with Queens Plumbing &mdash; sorry I missed you. I'm finishing up a job.</div>
+          <div class="tbub seq s4">Are you dealing with a leak, clog, or no hot water? Text me the address and a quick photo if you can, and I'll get right back to you.</div>
+          <div class="sentline seq s5">Sent automatically &bull; 10:47 AM</div>
 
-          <div class="tbub seq s4">If you can quickly fill out a quote form on my website <span class="lnk">queensrolloff.com</span> I'll get back to you as soon as possible.<span class="tm">10:47 AM</span></div>
-
+          <div class="phfill"></div>
           <div class="inbar"><span class="plus">+</span><span>Text Message</span></div>
+          <div class="homebar"></div>
         </div>
       </div>
 
@@ -717,7 +873,7 @@ footer .row{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
   if(!('IntersectionObserver' in window))return;
   if(c.saveData===true||/^(slow-2g|2g|3g)$/.test(c.effectiveType||''))return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  ['sys01phone','site01anim'].forEach(function(id){
+  ['sys01phone','site01anim','sys02phone'].forEach(function(id){
     var el=document.getElementById(id); if(!el)return;
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting){ el.classList.add('live'); io.disconnect(); } });
