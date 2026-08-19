@@ -151,13 +151,13 @@ nav.links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
 
 /* still by default (no JS / slow link / reduced motion) — animates only when .live is added in view */
 .seq{opacity:1}
-.live .seq{animation-duration:12s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease}
+.live .seq{animation-duration:16s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease}
 .live .s1{animation-name:sq1}.live .s2{animation-name:sq2}
 .live .s3{animation-name:sq3}.live .s4{animation-name:sq4}
-@keyframes sq1{0%,8%{opacity:0;transform:translateY(10px)}15%,93%{opacity:1;transform:none}98%,100%{opacity:0}}
-@keyframes sq2{0%,26%{opacity:0}33%,93%{opacity:1}98%,100%{opacity:0}}
-@keyframes sq3{0%,34%{opacity:0;transform:translateY(10px)}42%,93%{opacity:1;transform:none}98%,100%{opacity:0}}
-@keyframes sq4{0%,58%{opacity:0;transform:translateY(10px)}66%,93%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes sq1{0%,6%{opacity:0;transform:translateY(10px)}11%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+@keyframes sq2{0%,19%{opacity:0}24%,96%{opacity:1}99%,100%{opacity:0}}
+@keyframes sq3{0%,25%{opacity:0;transform:translateY(10px)}31%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+@keyframes sq4{0%,41%{opacity:0;transform:translateY(10px)}47%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.live .seq{animation:none!important;opacity:1!important;transform:none!important}}
 
 .sysbody .plate{font-family:'Barlow Semi Condensed',Arial,sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-size:15px;margin-bottom:6px}
