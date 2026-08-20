@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WorkTruck Systems — The Operating System for Businesses That Work From a Truck</title>
-<meta name="description" content="Missed-call textback, lead follow-up, scheduling, review requests and a free website — one simple system for dumpster rental, pressure washing, junk removal and mobile detailing companies. $297/mo flat.">
+<meta name="description" content="Missed-call textback, lead follow-up, scheduling, review requests and a free website — one simple system for dumpster rental, junk removal, pressure washing, roofing, plumbing, HVAC, landscaping and every other trade that works out of a truck. $297/mo flat.">
 <link rel="canonical" href="https://worktrucksystems.com/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta property="og:type" content="website">
@@ -289,6 +289,13 @@ nav.links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
 .trade p{font-size:15px;color:var(--asphalt)}
 .trade .tick{width:26px;height:4px;background:var(--orange);margin-bottom:14px}
 
+/* trades: four launch trades + full chip grid */
+.trade.lead{background:#fff}
+.tmore{margin:26px 0 12px;font-family:'Barlow Semi Condensed',Arial,sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px;color:#6b6b6b}
+.tgrid{display:flex;flex-wrap:wrap;gap:9px}
+.tchip{display:inline-block;background:#fff;border:1px solid var(--panel-line);border-left:4px solid var(--orange);border-radius:8px;padding:10px 15px;font-family:'Barlow Semi Condensed',Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:14.5px;color:#2a2a2a}
+@media(max-width:520px){.tchip{font-size:13.5px;padding:9px 12px}}
+
 /* ===== TIMELINE ===== */
 .tl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
 .tstep{background:#fff;border:1px solid var(--panel-line);border-top:5px solid var(--orange);border-radius:12px;padding:24px 20px;box-shadow:var(--shadow)}
@@ -564,12 +571,36 @@ footer .row{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
 <section class="pad" style="background:var(--warm);border-top:1px solid var(--panel-line);border-bottom:1px solid var(--panel-line);">
   <div class="wrap">
     <p class="eyebrow">Built for the trades that live in the truck</p>
-    <h2>One system, four trades</h2>
+    <h2>One system, every trade that works out of a truck</h2>
     <div class="trades">
-      <div class="trade"><div class="tick"></div><h3>Dumpster rental</h3><p>Cans quoted and booked by text while you're behind the wheel.</p></div>
-      <div class="trade"><div class="tick"></div><h3>Pressure washing</h3><p>Quotes answered before the other guy calls back.</p></div>
-      <div class="trade"><div class="tick"></div><h3>Junk removal</h3><p>Speed-to-lead wins the job. The system is always first.</p></div>
-      <div class="trade"><div class="tick"></div><h3>Mobile detailing</h3><p>Confirmations, reminders, and rebooking on autopilot.</p></div>
+      <div class="trade lead"><div class="tick"></div><h3>Dumpster rental</h3><p>Cans quoted and booked by text while you're behind the wheel.</p></div>
+      <div class="trade lead"><div class="tick"></div><h3>Junk removal</h3><p>Speed-to-lead wins the job. The system is always first.</p></div>
+      <div class="trade lead"><div class="tick"></div><h3>Pressure washing</h3><p>Quotes answered before the other guy calls back.</p></div>
+      <div class="trade lead"><div class="tick"></div><h3>Mobile detailing</h3><p>Confirmations, reminders, and rebooking on autopilot.</p></div>
+    </div>
+    <p class="tmore">Also running on WorkTruck Systems:</p>
+    <div class="tgrid">
+      <span class="tchip">Roofing</span>
+      <span class="tchip">Plumbing</span>
+      <span class="tchip">HVAC</span>
+      <span class="tchip">Electrician</span>
+      <span class="tchip">Painters</span>
+      <span class="tchip">Handyman</span>
+      <span class="tchip">General contractors</span>
+      <span class="tchip">Remodeling</span>
+      <span class="tchip">Home builders</span>
+      <span class="tchip">Tree service</span>
+      <span class="tchip">Landscapers</span>
+      <span class="tchip">Hardscaping</span>
+      <span class="tchip">Decks &amp; patios</span>
+      <span class="tchip">Pool construction</span>
+      <span class="tchip">Siding</span>
+      <span class="tchip">Windows &amp; doors</span>
+      <span class="tchip">Paving</span>
+      <span class="tchip">Pest control</span>
+      <span class="tchip">Flooring &amp; carpet cleaning</span>
+      <span class="tchip">Moving companies</span>
+      <span class="tchip">Dog groomers</span>
     </div>
   </div>
 </section>
