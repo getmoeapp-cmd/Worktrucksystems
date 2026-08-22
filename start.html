@@ -97,6 +97,13 @@ body{
 .wt-opt:active{transform:translateX(1px) scale(.995);}
 .wt-opt__key{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--chalk);flex:none;width:16px;}
 .wt-opt:hover .wt-opt__key{color:var(--orange);}
+.wt-opt.is-selected{
+  background:#3A2A18;border-color:var(--orange);border-left-color:var(--orange);
+  font-weight:600;
+}
+.wt-opt.is-selected .wt-opt__key{color:var(--orange);}
+.wt-opt__tick{margin-left:auto;color:var(--orange);font-weight:700;opacity:0;transition:opacity .16s;}
+.wt-opt.is-selected .wt-opt__tick{opacity:1;}
 
 /* ── Fields ── */
 .wt-fields{display:flex;flex-direction:column;gap:13px;max-width:440px;}
@@ -113,8 +120,9 @@ body{
 
 .wt-go{
   margin-top:22px;width:100%;max-width:440px;
-  background:var(--orange);color:#140F0A;border:none;border-radius:5px;padding:19px 22px;
-  font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em;cursor:pointer;
+  background:var(--orange);color:#140F0A;border:none;border-radius:5px;padding:18px 22px;
+  font-family:var(--display);font-weight:800;font-size:17px;line-height:1.25;
+  letter-spacing:-.01em;cursor:pointer;
   transition:background .16s,transform .16s var(--ease);
 }
 .wt-go:hover{background:#FF7A0F;transform:translateY(-2px);}
@@ -153,15 +161,34 @@ body{
 .wt-video{position:relative;width:100%;aspect-ratio:16/9;background:#141414;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .wt-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .wt-video__slot{text-align:center;padding:26px;font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#5A6065;line-height:2;}
-.wt-rest{margin-top:30px;}
-.wt-rest__hd{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk);margin:0 0 14px;}
+.wt-rest{margin-top:34px;}
+.wt-rest__hd{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.015em;color:var(--concrete);margin:0 0 5px;}
+.wt-rest__sub{font-size:14px;color:var(--chalk);margin:0 0 14px;}
 .wt-rest__grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
-.wt-sys{display:flex;align-items:baseline;gap:12px;background:var(--asphalt);padding:13px 15px;font-size:14.5px;}
+.wt-sys{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--asphalt);border:none;padding:14px 15px;
+  font-family:var(--body);font-size:14.5px;color:var(--concrete);cursor:pointer;
+  transition:background .14s;
+}
+.wt-sys:hover{background:#33373C;}
 .wt-sys__n{font-family:var(--mono);font-size:11px;font-weight:600;color:#5A6065;flex:none;width:20px;}
-.wt-sys.is-yours{background:#3A2A18;}
-.wt-sys.is-yours .wt-sys__n{color:var(--orange);}
-.wt-sys.is-yours b{color:var(--orange);font-weight:600;}
-.wt-next{display:grid;grid-template-columns:1fr;gap:11px;margin-top:26px;}
+.wt-sys__nm{flex:1;}
+.wt-sys__flag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);flex:none;}
+.wt-sys.is-active{background:#3A2A18;}
+.wt-sys.is-active .wt-sys__n{color:var(--orange);}
+.wt-sys.is-active .wt-sys__nm{font-weight:600;color:var(--orange);}
+
+/* Booking block */
+.wt-book{margin-top:38px;padding-top:32px;border-top:1px solid var(--line);}
+.wt-book__hd{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance;}
+.wt-book__sub{font-size:15px;color:var(--chalk);margin:0 0 22px;max-width:52ch;}
+.wt-cal{
+  width:100%;min-height:640px;background:#F7F7F5;
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;
+}
+.wt-cal iframe{width:100%;height:640px;border:0;display:block;}
+.wt-next{display:grid;grid-template-columns:1fr;gap:11px;margin-top:22px;}
 .wt-next a{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--asphalt);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:5px;padding:17px 18px;text-decoration:none;color:var(--concrete);font-weight:500;transition:background .16s,transform .16s var(--ease);}
 .wt-next a:hover{background:#33373C;transform:translateX(3px);}
 .wt-next span{font-family:var(--mono);font-size:11px;color:var(--chalk);letter-spacing:.09em;}
@@ -226,7 +253,27 @@ body{
    CONFIG — set these before launch
    ══════════════════════════════════════════════════ */
 var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/ljnjsKRPJSiGC2ePan7L/webhook-trigger/0cc484a7-ae48-4ef0-b0e4-c09a4c1ba3eb';
-var VIDEO_EMBED = '';                                 // e.g. 'https://www.youtube.com/embed/XXXX?rel=0'
+
+/* Paste each 30-second clip's EMBED url. Leave blank and that tile shows a placeholder.
+   YouTube: https://www.youtube.com/embed/VIDEO_ID?rel=0
+   Vimeo:   https://player.vimeo.com/video/VIDEO_ID
+   Loom:    https://www.loom.com/embed/VIDEO_ID                                        */
+var VIDEOS = {
+  '01':'',  /* Missed Call Recovery      */
+  '02':'',  /* Automatic Lead Follow-Up  */
+  '03':'',  /* Booking & Reminders       */
+  '04':'',  /* Mobile Estimates          */
+  '05':'',  /* Invoicing & Payments      */
+  '06':'',  /* Google Review Engine      */
+  '07':'',  /* Customer Inbox & Job Board*/
+  '08':'',  /* Repeat Customer Engine    */
+  '09':'',  /* Reactivation & Broadcasts */
+  '10':'',  /* Estimate Follow-Up Engine */
+  '11':'',  /* AI Receptionist           */
+  '12':''   /* Referral Engine           */
+};
+
+var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/bookings/demo-xoqfmqyc2';
 /* ══════════════════════════════════════════════════ */
 
 var stage=document.getElementById('stage'), thread=document.getElementById('thread'),
@@ -338,7 +385,8 @@ var STEPS=[
   {key:'website',eyebrow:'04 \u2014 The storefront',
    ask:'Do you have a website?',
    sub:'Straight answer \u2014 it changes what we build you.',
-   opts:['No','Facebook page only','Yes, but it\u2019s outdated','Yes, and it\u2019s fine']}
+   opts:['No','Facebook page only','Yes, but it\u2019s outdated','Yes, and it\u2019s fine'],
+   final:true, cta:'Show me how it works'}
 ];
 
 function paint(){
@@ -414,12 +462,14 @@ function renderContact(){
     +'<button class="wt-go" id="go">Let\u2019s get started \u2192</button>'
     +'<p class="wt-fine">We\u2019ll text and email you the demo link so you don\u2019t lose it. Message and data rates may apply. Reply STOP to opt out at any time. No contract, and nobody calls you unless you ask.</p>'
     +'</div>';
-  document.getElementById('go').addEventListener('click',startFunnel);
   ['name','cell','email'].forEach(function(k){
-    document.getElementById('f_'+k).addEventListener('keydown',function(e){
+    var el=document.getElementById('f_'+k);
+    if(state[k]) el.value=state[k];                 /* restore on Back */
+    el.addEventListener('keydown',function(e){
       if(e.key==='Enter') startFunnel();
     });
   });
+  document.getElementById('go').addEventListener('click',startFunnel);
 }
 
 function renderQuestion(s){
@@ -428,22 +478,53 @@ function renderQuestion(s){
     +'<h1 class="wt-ask">'+s.ask+'</h1>'
     +'<p class="wt-sub">'+s.sub+'</p><div class="wt-opts">';
   s.opts.forEach(function(o,i){
-    h+='<button class="wt-opt" data-val="'+esc(o)+'">'
-      +'<span class="wt-opt__key">'+(i+1)+'</span>'+esc(o)+'</button>';
+    var sel = s.final && state[s.key]===o;
+    h+='<button class="wt-opt'+(sel?' is-selected':'')+'" data-val="'+esc(o)+'">'
+      +'<span class="wt-opt__key">'+(i+1)+'</span>'+esc(o)
+      +(s.final?'<span class="wt-opt__tick">\u2713</span>':'')
+      +'</button>';
   });
-  h+='</div><button class="wt-back" id="back">\u2190 Back</button></div>';
+  h+='</div>';
+  if(s.final) h+='<button class="wt-go" id="submit"'+(state[s.key]?'':' disabled')+'>'+s.cta+'</button>';
+  h+='<button class="wt-back" id="back">\u2190 Back</button></div>';
   stage.innerHTML=h;
 
   Array.prototype.forEach.call(stage.querySelectorAll('.wt-opt'),function(btn){
     btn.addEventListener('click',function(){
       state[s.key]=btn.getAttribute('data-val');
+
+      if(s.final){
+        /* select only — the submit button advances */
+        Array.prototype.forEach.call(stage.querySelectorAll('.wt-opt'),function(b){
+          b.classList.toggle('is-selected', b===btn);
+        });
+        var go=document.getElementById('submit');
+        go.disabled=false;
+        return;
+      }
+
       threadFor(s.key);
       state.step++;
-      if(state.step===4) finishFunnel();
       render();
       window.scrollTo({top:0,behavior:'smooth'});
     });
   });
+
+  if(s.final){
+    document.getElementById('submit').addEventListener('click',function(){
+      if(!state[s.key]) return;
+      var go=document.getElementById('submit');
+      go.disabled=true; go.textContent='One sec\u2026';
+      threadFor(s.key);
+      state.step++;
+      finishFunnel();
+      setTimeout(function(){
+        render();
+        window.scrollTo({top:0,behavior:'smooth'});
+      },600);
+    });
+  }
+
   document.getElementById('back').addEventListener('click',function(){state.step--;render();});
 }
 
@@ -524,34 +605,100 @@ function finishFunnel(){
   if(window.fbq) fbq('track','CompleteRegistration',{content_name:state.problem});
 }
 
+/* ── Which systems they actually opened, in order ── */
+var watched=[], watchTimer=null;
+
+function logWatch(id){
+  var sys=null; SYSTEMS.forEach(function(s){ if(s[0]===id) sys=s; });
+  var label=id+' '+(sys?sys[1]:'');
+  if(watched[watched.length-1]===label) return;   /* ignore re-tapping the same one */
+  watched.push(label);
+  clearTimeout(watchTimer);
+  watchTimer=setTimeout(pushWatched,4000);        /* batch a browsing burst into one post */
+}
+function watchPayload(){
+  var p=utms();
+  p.firstName=state.name.split(' ')[0];
+  p.lastName=state.name.split(' ').slice(1).join(' ');
+  p.name=state.name; p.phone=state.cell; p.email=state.email;
+  p.systems_viewed=watched.join('  \u2192  ');
+  p.systems_viewed_count=String(watched.length);
+  p.funnel_stage='complete';
+  return p;
+}
+function pushWatched(){ if(watched.length) post(watchPayload()); }
+
+/* Safety net — fires if they close the tab mid-browse */
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState!=='hidden'||!watched.length) return;
+  if(WEBHOOK_URL.indexOf('http')!==0) return;
+  try{
+    navigator.sendBeacon(WEBHOOK_URL,
+      new Blob([JSON.stringify(watchPayload())],{type:'text/plain'}));
+  }catch(e){}
+});
+
 function renderDemo(){
   if(window.fbq) fbq('track','ViewContent',{content_name:'demo_video'});
   var p=P();
-  var player=VIDEO_EMBED
-    ? '<iframe src="'+VIDEO_EMBED+'" title="WorkTruck Systems demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
-    : '<div class="wt-video__slot">Video slot<br>Set VIDEO_EMBED in the config block</div>';
+  var startId=p?p.sys:'01';
+  logWatch(startId);
+  paintDemo(startId);
+  bubble('sys','\u2014 built from your answers \u2014',300);
+}
 
-  var rows='';
+function paintDemo(id){
+  var p=P();
+  var sys=null;
+  SYSTEMS.forEach(function(s){ if(s[0]===id) sys=s; });
+  if(!sys) sys=SYSTEMS[0];
+
+  var url=VIDEOS[id]||'';
+  var player = url
+    ? '<iframe src="'+url+'" title="'+esc(sys[1])+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
+    : '<div class="wt-video__slot">System '+id+' \u00b7 '+esc(sys[1])+'<br>Add the embed URL to VIDEOS in the config block</div>';
+
+  var tiles='';
   SYSTEMS.forEach(function(s){
-    var mine=p&&s[0]===p.sys;
-    rows+='<div class="wt-sys'+(mine?' is-yours':'')+'">'
+    var mine = p && s[0]===p.sys;
+    tiles+='<button class="wt-sys'+(s[0]===id?' is-active':'')+'" data-id="'+s[0]+'">'
       +'<span class="wt-sys__n">'+s[0]+'</span>'
-      +(mine?'<b>'+esc(s[1])+'</b>':esc(s[1]))+'</div>';
+      +'<span class="wt-sys__nm">'+esc(s[1])+'</span>'
+      +(mine?'<span class="wt-sys__flag">yours</span>':'')
+      +'</button>';
   });
 
-  stage.innerHTML='<div class="wt-demo">'
-    +'<p class="wt-eyebrow">Demo \u00b7 5 minutes</p>'
-    +'<h1 class="wt-demo__hd">'+first()+', that thread is one system out of twelve.</h1>'
-    +'<p class="wt-demo__sub">'+(p?esc(p.name):'That system')+' is the one you said was costing you the most, so we showed it first. Here\u2019s the whole thing running \u2014 answering, quoting, booking, invoicing, collecting, and bringing customers back while you\u2019re on the job.</p>'
-    +'<div class="wt-video">'+player+'</div>'
-    +'<div class="wt-rest"><p class="wt-rest__hd">All twelve \u00b7 included at $297/mo</p>'
-    +'<div class="wt-rest__grid">'+rows+'</div></div>'
-    +'<div class="wt-next">'
-    +'<a href="tel:+13473421911"><span>Questions</span> Call us \u2192</a>'
-    +'<a href="sms:+13473421911"><span>Faster</span> Text us \u2192</a>'
-    +'</div></div>';
+  var lede = (p && id===p.sys)
+    ? first()+', start with the one costing you money.'
+    : esc(sys[1])+'.';
 
-  bubble('sys','\u2014 built from your answers \u2014',300);
+  stage.innerHTML='<div class="wt-demo">'
+    +'<p class="wt-eyebrow">System '+id+' \u00b7 '+esc(sys[1])+' \u00b7 30 seconds</p>'
+    +'<h1 class="wt-demo__hd">'+lede+'</h1>'
+    +'<p class="wt-demo__sub">Thirty seconds each, running on a real account. Tap any of the twelve below to watch that one.</p>'
+    +'<div class="wt-video">'+player+'</div>'
+    +'<div class="wt-rest">'
+    +'<p class="wt-rest__hd">Check out another system</p>'
+    +'<p class="wt-rest__sub">Tap any one to watch it \u2014 30 seconds each. All twelve are included at $297/mo.</p>'
+    +'<div class="wt-rest__grid" id="tiles">'+tiles+'</div></div>'
+    +'<div class="wt-book">'
+    +'<h2 class="wt-book__hd">Want to see it running on your own number?</h2>'
+    +'<p class="wt-book__sub">Fifteen minutes, no slides. I\u2019ll set it up live on your line and you can watch a missed call get answered. Nothing to prepare.</p>'
+    +'<div class="wt-cal"><iframe src="'+CALENDAR_URL+'" scrolling="no" title="Book a demo call"></iframe></div>'
+    +'<div class="wt-next">'
+    +'<a href="tel:+13473421911"><span>Rather talk now</span> Call us \u2192</a>'
+    +'<a href="sms:+13473421911"><span>Quick question</span> Text us \u2192</a>'
+    +'</div></div></div>';
+
+  Array.prototype.forEach.call(document.querySelectorAll('#tiles .wt-sys'),function(b){
+    b.addEventListener('click',function(){
+      var nid=b.getAttribute('data-id');
+      if(window.fbq) fbq('trackCustom','SystemVideoView',{system:nid});
+      logWatch(nid);
+      paintDemo(nid);
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
 }
 
 render();
