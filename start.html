@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WorkTruck Systems — See it work in 5 minutes</title>
+<meta name="description" content="Answer 5 quick questions and watch the 5-minute demo. Free website built for contractors, included with the $297/mo system.">
+<meta name="robots" content="noindex">
+
+<meta property="og:title" content="WorkTruck Systems — See it work in 5 minutes">
+<meta property="og:description" content="Every missed call gets a text back. Free website included. $297/mo, no contract.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════════════════
+     META PIXEL — replace YOUR_PIXEL_ID before launch
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
+<style>
+:root{
+  --steel:#1E1E1E;
+  --asphalt:#2C2F33;
+  --line:#3A3E44;
+  --orange:#F26A00;
+  --orange-dim:#B84F00;
+  --concrete:#EDEEF0;
+  --chalk:#9AA0A6;
+
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --shell-max:1140px;
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+
+body{
+  background:var(--steel);
+  color:var(--concrete);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.5;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
+
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+
+/* ── Top bar ─────────────────────────────────────── */
+.wt-topbar{
+  position:sticky;top:0;z-index:40;
+  background:rgba(30,30,30,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:14px 20px 0;
+}
+.wt-topbar__inner{
+  max-width:var(--shell-max);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+
+.wt-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.wt-logo__mark{width:34px;height:24px;flex:none;}
+.wt-logo__type{display:flex;flex-direction:column;line-height:1;}
+.wt-logo__a{
+  font-family:var(--display);font-weight:900;font-size:15px;
+  letter-spacing:-.02em;color:var(--concrete);
+}
+.wt-logo__b{
+  font-family:var(--display);font-weight:700;font-size:8.5px;
+  letter-spacing:.34em;color:var(--orange);margin-top:2px;
+}
+
+.wt-count{
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  color:var(--chalk);letter-spacing:.06em;white-space:nowrap;
+}
+.wt-count b{color:var(--concrete);font-weight:600;}
+
+/* segmented progress — one slat per question */
+.wt-slats{
+  max-width:var(--shell-max);margin:12px auto 0;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+}
+.wt-slat{height:3px;background:var(--line);border-radius:1px;overflow:hidden;}
+.wt-slat span{
+  display:block;height:100%;width:0;background:var(--orange);
+  transition:width .45s var(--ease);
+}
+.wt-slat.is-done span{width:100%;}
+
+/* ── Layout ──────────────────────────────────────── */
+.wt-main{
+  flex:1;width:100%;max-width:var(--shell-max);
+  margin:0 auto;padding:34px 20px 40px;
+}
+.wt-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:start;}
+
+/* ── Question card ───────────────────────────────── */
+.wt-step{animation:wt-in .38s var(--ease) both;}
+@keyframes wt-in{
+  from{opacity:0;transform:translateX(18px);}
+  to{opacity:1;transform:none;}
+}
+
+.wt-eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--orange);margin:0 0 14px;
+}
+.wt-ask{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(29px,7vw,44px);line-height:1.04;
+  letter-spacing:-.025em;color:var(--concrete);
+  margin:0 0 8px;text-wrap:balance;
+}
+.wt-sub{
+  font-size:15px;color:var(--chalk);margin:0 0 24px;max-width:46ch;
+}
+
+.wt-opts{display:flex;flex-direction:column;gap:9px;}
+.wt-opt{
+  display:flex;align-items:center;gap:14px;
+  width:100%;text-align:left;
+  background:var(--asphalt);
+  border:1px solid var(--line);border-left:3px solid var(--line);
+  border-radius:5px;
+  padding:17px 18px;
+  color:var(--concrete);
+  font-family:var(--body);font-size:16.5px;font-weight:500;
+  cursor:pointer;
+  transition:border-color .16s,background .16s,transform .16s var(--ease);
+}
+.wt-opt:hover{background:#33373C;border-left-color:var(--orange);transform:translateX(3px);}
+.wt-opt:active{transform:translateX(1px) scale(.995);}
+.wt-opt__key{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--chalk);flex:none;width:14px;
+}
+.wt-opt:hover .wt-opt__key{color:var(--orange);}
+
+/* ── Step 5: contact ─────────────────────────────── */
+.wt-fields{display:flex;flex-direction:column;gap:13px;max-width:440px;}
+.wt-field label{
+  display:block;
+  font-family:var(--mono);font-size:10.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--chalk);margin-bottom:6px;
+}
+.wt-field input{
+  width:100%;
+  background:var(--asphalt);
+  border:1px solid var(--line);border-radius:5px;
+  padding:14px 15px;
+  color:var(--concrete);
+  font-family:var(--body);font-size:16.5px;
+  transition:border-color .16s;
+}
+.wt-field input::placeholder{color:#666B70;}
+.wt-field input:focus{border-color:var(--orange);outline:none;}
+.wt-field.has-error input{border-color:#E2564A;}
+.wt-err{
+  display:none;color:#E2564A;font-size:12.5px;margin-top:5px;
+  font-family:var(--mono);
+}
+.wt-field.has-error .wt-err{display:block;}
+
+.wt-go{
+  margin-top:22px;width:100%;max-width:440px;
+  background:var(--orange);color:#140F0A;
+  border:none;border-radius:5px;
+  padding:19px 22px;
+  font-family:var(--display);font-weight:800;font-size:17px;
+  letter-spacing:-.01em;cursor:pointer;
+  transition:background .16s,transform .16s var(--ease);
+}
+.wt-go:hover{background:#FF7A0F;transform:translateY(-2px);}
+.wt-go:active{transform:translateY(0);}
+.wt-go[disabled]{opacity:.55;cursor:wait;transform:none;}
+
+.wt-fine{
+  font-size:12.5px;color:#6E7479;margin:13px 0 0;
+  max-width:440px;line-height:1.55;
+}
+
+.wt-back{
+  background:none;border:none;padding:8px 0;margin-top:24px;
+  color:var(--chalk);font-family:var(--mono);font-size:12px;
+  letter-spacing:.05em;cursor:pointer;
+}
+.wt-back:hover{color:var(--orange);}
+
+/* ── Thread panel (the signature) ────────────────── */
+.wt-thread{
+  background:var(--asphalt);
+  border:1px solid var(--line);border-radius:12px;
+  padding:16px;
+  display:flex;flex-direction:column;gap:9px;
+  min-height:150px;
+}
+.wt-thread__hd{
+  display:flex;align-items:center;gap:8px;
+  padding-bottom:11px;margin-bottom:3px;
+  border-bottom:1px solid var(--line);
+}
+.wt-thread__dot{width:7px;height:7px;border-radius:50%;background:var(--orange);flex:none;}
+.wt-thread__hd span{
+  font-family:var(--mono);font-size:10.5px;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--chalk);
+}
+.wt-thread__idle{
+  font-size:13.5px;color:#6E7479;line-height:1.55;margin:auto 0;
+}
+
+.wt-bub{
+  max-width:87%;padding:11px 14px;border-radius:14px;
+  font-size:14.5px;line-height:1.45;
+  animation:wt-pop .3s var(--ease) both;
+}
+@keyframes wt-pop{
+  from{opacity:0;transform:translateY(9px) scale(.97);}
+  to{opacity:1;transform:none;}
+}
+.wt-bub--in{
+  align-self:flex-start;background:#3B4046;color:var(--concrete);
+  border-bottom-left-radius:4px;
+}
+.wt-bub--out{
+  align-self:flex-end;background:var(--orange);color:#140F0A;
+  border-bottom-right-radius:4px;font-weight:500;
+}
+.wt-bub--sys{
+  align-self:center;background:none;padding:2px 0;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:#6E7479;max-width:100%;
+}
+.wt-bub b{font-weight:600;}
+.wt-tag{
+  align-self:flex-end;font-family:var(--mono);font-size:10px;
+  letter-spacing:.09em;text-transform:uppercase;color:#6E7479;
+  margin-top:-4px;
+}
+
+.wt-typing{
+  align-self:flex-end;display:flex;gap:4px;
+  background:var(--orange-dim);padding:13px 15px;border-radius:14px;
+  border-bottom-right-radius:4px;
+}
+.wt-typing i{
+  width:6px;height:6px;border-radius:50%;background:#FFD9BA;
+  animation:wt-blink 1.3s infinite;
+}
+.wt-typing i:nth-child(2){animation-delay:.18s;}
+.wt-typing i:nth-child(3){animation-delay:.36s;}
+@keyframes wt-blink{0%,60%,100%{opacity:.3;}30%{opacity:1;}}
+
+/* ── Demo screen ─────────────────────────────────── */
+.wt-demo{animation:wt-in .45s var(--ease) both;}
+.wt-demo__hd{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(27px,6.4vw,40px);line-height:1.06;
+  letter-spacing:-.025em;margin:0 0 10px;text-wrap:balance;
+}
+.wt-demo__sub{font-size:16px;color:var(--chalk);margin:0 0 26px;max-width:56ch;}
+.wt-video{
+  position:relative;width:100%;aspect-ratio:16/9;
+  background:#141414;border:1px solid var(--line);border-radius:10px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.wt-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.wt-video__slot{
+  text-align:center;padding:26px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:#5A6065;line-height:2;
+}
+.wt-next{
+  display:grid;grid-template-columns:1fr;gap:11px;
+  margin-top:26px;
+}
+.wt-next a{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:var(--asphalt);border:1px solid var(--line);
+  border-left:3px solid var(--orange);border-radius:5px;
+  padding:17px 18px;text-decoration:none;color:var(--concrete);
+  font-weight:500;transition:background .16s,transform .16s var(--ease);
+}
+.wt-next a:hover{background:#33373C;transform:translateX(3px);}
+.wt-next span{font-family:var(--mono);font-size:11px;color:var(--chalk);letter-spacing:.09em;}
+
+/* ── Anchor bar ──────────────────────────────────── */
+.wt-anchor{
+  border-top:1px solid var(--line);
+  background:#191919;
+  padding:15px 20px;
+}
+.wt-anchor__inner{
+  max-width:var(--shell-max);margin:0 auto;
+  display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;
+  font-size:13.5px;color:var(--chalk);
+}
+.wt-anchor b{
+  font-family:var(--display);font-weight:800;font-size:15px;
+  color:var(--orange);letter-spacing:-.01em;
+}
+
+/* ── Desktop ─────────────────────────────────────── */
+@media (min-width:920px){
+  .wt-grid{grid-template-columns:1fr 372px;gap:56px;}
+  .wt-thread{position:sticky;top:118px;min-height:300px;}
+  .wt-main{padding:52px 20px 60px;}
+  .wt-next{grid-template-columns:1fr 1fr;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    transition-duration:.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="wt-topbar">
+  <div class="wt-topbar__inner">
+    <a class="wt-logo" href="/">
+      <svg class="wt-logo__mark" viewBox="0 0 68 48" aria-hidden="true">
+        <path d="M2 34h6V20h18l7-9h13v23h6" fill="none" stroke="#EDEEF0" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M52 34h14" fill="none" stroke="#EDEEF0" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="18" cy="35" r="6" fill="#EDEEF0"/>
+        <circle cx="47" cy="35" r="6" fill="#EDEEF0"/>
+        <path d="M40 2h22a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H50l-5 5v-5h-5a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z" fill="#F26A00"/>
+      </svg>
+      <span class="wt-logo__type">
+        <span class="wt-logo__a">WORKTRUCK</span>
+        <span class="wt-logo__b">SYSTEMS</span>
+      </span>
+    </a>
+    <div class="wt-count" id="count"><b>01</b> / 05</div>
+  </div>
+  <div class="wt-slats" id="slats" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-label="Progress">
+    <div class="wt-slat"><span></span></div>
+    <div class="wt-slat"><span></span></div>
+    <div class="wt-slat"><span></span></div>
+    <div class="wt-slat"><span></span></div>
+    <div class="wt-slat"><span></span></div>
+  </div>
+</header>
+
+<main class="wt-main">
+  <div class="wt-grid">
+    <div id="stage" aria-live="polite"></div>
+    <aside class="wt-thread" id="thread" aria-label="Your automatic text back, building as you answer">
+      <div class="wt-thread__hd">
+        <i class="wt-thread__dot"></i>
+        <span>Your auto-text</span>
+      </div>
+      <p class="wt-thread__idle" id="idle">Answer the questions and watch the text your customers would get built out of your own answers.</p>
+    </aside>
+  </div>
+</main>
+
+<footer class="wt-anchor">
+  <div class="wt-anchor__inner">
+    <b>$297/mo</b>
+    <span>Website built free and included. No setup fee, no contract, cancel any month.</span>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════
+   CONFIG — set these two before launch
+   ══════════════════════════════════════════════════ */
+var WEBHOOK_URL = 'PASTE_GHL_INBOUND_WEBHOOK_URL';   // GHL → Automation → Inbound Webhook trigger
+var VIDEO_EMBED = '';                                 // e.g. 'https://www.youtube.com/embed/XXXX?rel=0'
+
+/* ══════════════════════════════════════════════════ */
+
+var stage   = document.getElementById('stage');
+var thread  = document.getElementById('thread');
+var idle    = document.getElementById('idle');
+var slats   = document.getElementById('slats');
+var countEl = document.getElementById('count');
+
+var state = { step:0, trade:'', volume:'', gap:'', site:'', name:'', biz:'', cell:'', email:'' };
+
+var TRADE_ASK = {
+  'Roll-off dumpsters' : 'What size do you need, and where are we dropping it?',
+  'Power washing'      : 'What are we washing \u2014 house, driveway, or deck?',
+  'Junk removal'       : 'What are we hauling, and what\u2019s the address?',
+  'Mobile detailing'   : 'Interior, exterior, or both \u2014 and where\u2019s the vehicle?',
+  'Something else'     : 'What do you need done, and where are you located?'
+};
+
+var MONTHLY = {
+  'Under 5'         : 'about 20 a month',
+  '5 to 15'         : 'somewhere near 20 to 60 a month',
+  'More than 15'    : 'over 60 a month',
+  'Honestly no idea': 'more than you\u2019d guess'
+};
+
+var STEPS = [
+  { key:'trade',  eyebrow:'01 \u2014 The truck', ask:'What\u2019s on the truck?',
+    sub:'So the demo shows the version built for your trade.',
+    opts:['Roll-off dumpsters','Power washing','Junk removal','Mobile detailing','Something else'] },
+
+  { key:'volume', eyebrow:'02 \u2014 The leak', ask:'In a normal week, how many calls do you miss?',
+    sub:'Best guess is fine.',
+    opts:['Under 5','5 to 15','More than 15','Honestly no idea'] },
+
+  { key:'gap',    eyebrow:'03 \u2014 Right now', ask:'What happens when you can\u2019t pick up?',
+    sub:'This is the part we replace.',
+    opts:['Goes to voicemail','Just rings out','Wife or family grabs it','Answering service'] },
+
+  { key:'site',   eyebrow:'04 \u2014 The storefront', ask:'Do you have a website?',
+    sub:'Straight answer \u2014 it changes what we build you.',
+    opts:['No','Facebook page only','Yes, but it\u2019s outdated','Yes, and it\u2019s fine'] }
+];
+
+/* ── Progress ───────────────────────────────────── */
+function paint(){
+  var done = Math.min(state.step,5);
+  var bars = slats.children;
+  for(var i=0;i<bars.length;i++){
+    bars[i].classList.toggle('is-done', i < done);
+  }
+  slats.setAttribute('aria-valuenow', done);
+  countEl.innerHTML = '<b>0'+Math.min(state.step+1,5)+'</b> / 05';
+}
+
+/* ── Thread ─────────────────────────────────────── */
+function bubble(kind, html, delay){
+  setTimeout(function(){
+    if(idle && idle.parentNode) idle.remove();
+    var el = document.createElement('div');
+    el.className = 'wt-bub wt-bub--'+kind;
+    el.innerHTML = html;
+    thread.appendChild(el);
+  }, delay||0);
+}
+function tag(text, delay){
+  setTimeout(function(){
+    var el = document.createElement('div');
+    el.className = 'wt-tag';
+    el.textContent = text;
+    thread.appendChild(el);
+  }, delay||0);
+}
+function typing(ms){
+  if(idle && idle.parentNode) idle.remove();
+  var el = document.createElement('div');
+  el.className = 'wt-typing';
+  el.innerHTML = '<i></i><i></i><i></i>';
+  thread.appendChild(el);
+  setTimeout(function(){ if(el.parentNode) el.remove(); }, ms);
+}
+function who(){
+  var n = state.name ? state.name.split(' ')[0] : 'you';
+  var b = state.biz  || 'your company';
+  return '<b>'+esc(n)+'</b> with <b>'+esc(b)+'</b>';
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function threadFor(key){
+  if(key === 'trade'){
+    bubble('sys','Tuesday \u00b7 2:14 PM', 0);
+    bubble('in','<b>Missed call</b><br>(813) 555\u20110142', 220);
+  }
+  if(key === 'volume'){
+    bubble('sys','\u2248 '+(MONTHLY[state.volume]||'a lot'), 120);
+  }
+  if(key === 'gap'){
+    typing(1150);
+    bubble('out','Hey \u2014 sorry I missed you, I\u2019m on a job right now. This is '+who()+'. '+esc(TRADE_ASK[state.trade]||'What do you need?'), 1200);
+    tag('Sent automatically \u00b7 8 seconds', 1400);
+  }
+  if(key === 'site'){
+    typing(950);
+    var line = (state.site === 'No' || state.site === 'Facebook page only')
+      ? 'Photos of past work are on my site \u2014 <b>we build this part free</b>.'
+      : 'Photos of past jobs are on my site if you want a look.';
+    bubble('out', line, 1000);
+  }
+}
+
+function refill(){
+  var outs = thread.querySelectorAll('.wt-bub--out');
+  if(!outs.length) return;
+  outs[0].innerHTML = 'Hey \u2014 sorry I missed you, I\u2019m on a job right now. This is '+who()+'. '+esc(TRADE_ASK[state.trade]||'What do you need?');
+}
+
+/* ── Render ─────────────────────────────────────── */
+function render(){
+  paint();
+
+  if(state.step < 4){ return renderQuestion(STEPS[state.step]); }
+  if(state.step === 4){ return renderContact(); }
+  return renderDemo();
+}
+
+function renderQuestion(s){
+  var h = '<div class="wt-step">'
+    + '<p class="wt-eyebrow">'+s.eyebrow+'</p>'
+    + '<h1 class="wt-ask">'+s.ask+'</h1>'
+    + '<p class="wt-sub">'+s.sub+'</p>'
+    + '<div class="wt-opts">';
+  s.opts.forEach(function(o,i){
+    h += '<button class="wt-opt" data-val="'+esc(o)+'">'
+       +   '<span class="wt-opt__key">'+(i+1)+'</span>'+esc(o)
+       + '</button>';
+  });
+  h += '</div>';
+  if(state.step > 0) h += '<button class="wt-back" id="back">\u2190 Back</button>';
+  h += '</div>';
+  stage.innerHTML = h;
+
+  Array.prototype.forEach.call(stage.querySelectorAll('.wt-opt'), function(btn){
+    btn.addEventListener('click', function(){
+      state[s.key] = btn.getAttribute('data-val');
+      threadFor(s.key);
+      state.step++;
+      render();
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  var b = document.getElementById('back');
+  if(b) b.addEventListener('click', function(){ state.step--; render(); });
+}
+
+function renderContact(){
+  stage.innerHTML = '<div class="wt-step">'
+    + '<p class="wt-eyebrow">05 \u2014 Last one</p>'
+    + '<h1 class="wt-ask">Where do we send the demo?</h1>'
+    + '<p class="wt-sub">Five minutes, no sales call. You\u2019ll see a missed call come in and get texted back before the video is over.</p>'
+    + '<div class="wt-fields">'
+    +   field('name','Your name','Mike Alvarez')
+    +   field('biz','Business name','Alvarez Pressure Washing')
+    +   field('cell','Cell','(813) 555-0142','tel')
+    +   field('email','Email','mike@alvarezwash.com','email')
+    + '</div>'
+    + '<button class="wt-go" id="go">Watch the 5-minute demo \u2192</button>'
+    + '<p class="wt-fine">We\u2019ll text and email you the demo link. Message and data rates may apply. Reply STOP to opt out at any time. No contract, and nobody calls you unless you ask.</p>'
+    + '<button class="wt-back" id="back">\u2190 Back</button>'
+    + '</div>';
+
+  ['name','biz'].forEach(function(k){
+    var el = document.getElementById('f_'+k);
+    el.addEventListener('input', function(){ state[k] = el.value; refill(); });
+  });
+
+  document.getElementById('go').addEventListener('click', submit);
+  document.getElementById('back').addEventListener('click', function(){ state.step--; render(); });
+}
+
+function field(id,label,ph,type){
+  return '<div class="wt-field" id="w_'+id+'">'
+    + '<label for="f_'+id+'">'+label+'</label>'
+    + '<input id="f_'+id+'" type="'+(type||'text')+'" placeholder="'+ph+'" autocomplete="'+auto(id)+'">'
+    + '<p class="wt-err">Required</p></div>';
+}
+function auto(id){
+  return {name:'name',biz:'organization',cell:'tel',email:'email'}[id]||'off';
+}
+
+function submit(){
+  var ok = true;
+  ['name','biz','cell','email'].forEach(function(k){
+    var input = document.getElementById('f_'+k);
+    var wrap  = document.getElementById('w_'+k);
+    var v = input.value.trim();
+    var bad = !v
+      || (k === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v))
+      || (k === 'cell'  && v.replace(/\D/g,'').length < 10);
+    wrap.classList.toggle('has-error', bad);
+    if(bad){ ok = false; } else { state[k] = v; }
+  });
+  if(!ok){
+    stage.querySelector('.has-error input').focus();
+    return;
+  }
+
+  var btn = document.getElementById('go');
+  btn.disabled = true;
+  btn.textContent = 'Loading your demo\u2026';
+
+  var q = new URLSearchParams(location.search);
+  var payload = {
+    firstName: state.name.split(' ')[0],
+    lastName:  state.name.split(' ').slice(1).join(' '),
+    name:      state.name,
+    companyName: state.biz,
+    phone:     state.cell,
+    email:     state.email,
+    trade:     state.trade,
+    missed_calls_weekly: state.volume,
+    current_handling:    state.gap,
+    has_website:         state.site,
+    source: 'worktrucksystems.com/start',
+    utm_source:   q.get('utm_source')   || '',
+    utm_medium:   q.get('utm_medium')   || '',
+    utm_campaign: q.get('utm_campaign') || '',
+    utm_content:  q.get('utm_content')  || '',
+    utm_term:     q.get('utm_term')     || '',
+    fbclid:       q.get('fbclid')       || ''
+  };
+
+  /* Meta: Lead fires here — before the video, so a drop-off still counts */
+  if(window.fbq) fbq('track','Lead',{content_name:state.trade});
+
+  var done = function(){ state.step = 5; render(); window.scrollTo({top:0,behavior:'smooth'}); };
+
+  if(WEBHOOK_URL.indexOf('http') === 0){
+    fetch(WEBHOOK_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(done).catch(done);
+  } else {
+    console.warn('WEBHOOK_URL not set — lead not sent.', payload);
+    setTimeout(done,300);
+  }
+}
+
+function renderDemo(){
+  if(window.fbq) fbq('track','ViewContent',{content_name:'demo_video'});
+
+  var first = state.name.split(' ')[0];
+  var player = VIDEO_EMBED
+    ? '<iframe src="'+VIDEO_EMBED+'" title="WorkTruck Systems demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
+    : '<div class="wt-video__slot">Video slot<br>Set VIDEO_EMBED in the config block</div>';
+
+  stage.innerHTML = '<div class="wt-demo">'
+    + '<p class="wt-eyebrow">Demo \u00b7 5 minutes</p>'
+    + '<h1 class="wt-demo__hd">'+esc(first)+', the text on the right is the real thing.</h1>'
+    + '<p class="wt-demo__sub">That\u2019s what your caller gets eight seconds after you miss them \u2014 from your number, while you\u2019re still working. Here\u2019s the rest of it running end to end.</p>'
+    + '<div class="wt-video">'+player+'</div>'
+    + '<div class="wt-next">'
+    +   '<a href="tel:+13473421911"><span>Questions</span> Call Ronnie \u2192</a>'
+    +   '<a href="sms:+13473421911"><span>Faster</span> Text us \u2192</a>'
+    + '</div>'
+    + '</div>';
+
+  bubble('sys','\u2014 built from your answers \u2014', 300);
+}
+
+render();
+</script>
+</body>
+</html>
