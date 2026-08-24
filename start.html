@@ -252,7 +252,7 @@ body{
 /* ══════════════════════════════════════════════════
    CONFIG — set these before launch
    ══════════════════════════════════════════════════ */
-var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/ljnjsKRPJSiGC2ePan7L/webhook-trigger/0cc484a7-ae48-4ef0-b0e4-c09a4c1ba3eb';
+var WEBHOOK_URL = '/api/lead';   /* Vercel serverless function → GHL. Same origin, no CORS. */
 
 /* Paste each 30-second clip's EMBED url. Leave blank and that tile shows a placeholder.
    YouTube: https://www.youtube.com/embed/VIDEO_ID?rel=0
@@ -546,14 +546,19 @@ function utms(){
   };
 }
 function post(payload){
-  if(WEBHOOK_URL.indexOf('http')!==0){
+  if(!WEBHOOK_URL || WEBHOOK_URL.indexOf('PASTE_')===0){
     console.warn('WEBHOOK_URL not set — not sent.',payload); return Promise.resolve();
   }
   return fetch(WEBHOOK_URL,{
     method:'POST',
-    headers:{'Content-Type':'text/plain;charset=UTF-8'},  /* skips CORS preflight */
+    headers:{'Content-Type':'application/json'},   /* same origin — no preflight concern */
     body:JSON.stringify(payload)
-  }).catch(function(){});
+  }).then(function(r){
+    return r.json().then(function(j){
+      if(!j.ok) console.warn('Lead not saved:',j);
+      return j;
+    }).catch(function(){ return null; });
+  }).catch(function(e){ console.warn('Lead post failed:',e); });
 }
 
 /* POST #1 — the moment we have contact info. They're a lead even if they bail. */
@@ -631,10 +636,10 @@ function pushWatched(){ if(watched.length) post(watchPayload()); }
 /* Safety net — fires if they close the tab mid-browse */
 document.addEventListener('visibilitychange',function(){
   if(document.visibilityState!=='hidden'||!watched.length) return;
-  if(WEBHOOK_URL.indexOf('http')!==0) return;
+  if(!WEBHOOK_URL || WEBHOOK_URL.indexOf('PASTE_')===0) return;
   try{
     navigator.sendBeacon(WEBHOOK_URL,
-      new Blob([JSON.stringify(watchPayload())],{type:'text/plain'}));
+      new Blob([JSON.stringify(watchPayload())],{type:"application/json"}));
   }catch(e){}
 });
 
