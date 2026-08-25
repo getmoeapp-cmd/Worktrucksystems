@@ -56,6 +56,12 @@ export default async function handler(req, res) {
     .filter(k => body[k] !== undefined && body[k] !== '')
     .map(k => ({ key: k, field_value: String(body[k]) }));
 
+  /* The tag IS the trigger. A distinct tag per stage means each post fires
+     its own tag-added event in GHL — re-sending the same tag does nothing. */
+  var tags = ['start-funnel'];
+  if (body.funnel_stage === 'complete') tags.push('funnel-done');
+  if (body.systems_viewed) tags.push('systems-browsed');
+
   const payload = {
     locationId: LOCATION,
     firstName: body.firstName || '',
@@ -63,7 +69,7 @@ export default async function handler(req, res) {
     email:     body.email     || '',
     phone:     body.phone     || '',
     source:    body.source    || 'worktrucksystems.com/start.html',
-    tags:      ['start-funnel'],
+    tags:      tags,
     customFields
   };
 

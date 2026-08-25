@@ -1,0 +1,67 @@
+FIX — why the opportunity never got created
+============================================
+
+WHAT WENT WRONG
+  The page posts twice. Both posts sent the same tag: start-funnel.
+  GHL only fires a "tag added" event the FIRST time a tag lands on a contact.
+  Post 2 re-sent a tag the contact already had -> no event -> no re-enrollment.
+  So the workflow only ever saw post 1, where funnel_stage = "started",
+  and it took the None branch every time.
+
+  Re-Entry doesn't help. There was no second trigger event to re-enter on.
+
+THE FIX
+  api/lead.js now applies a DIFFERENT tag per stage:
+
+    post 1 (contact captured)  -> start-funnel
+    post 2 (questions done)    -> start-funnel + funnel-done
+    post 3 (browsed videos)    -> + systems-browsed
+
+  Two distinct tag-added events. Two enrollments. The tag carries the meaning,
+  so no If/Else is needed at all.
+
+STEP 1 — upload
+  Replace api/lead.js in the repo with this one.
+  No env var changes. No redeploy needed beyond the normal git push build.
+
+STEP 2 — rebuild Funnel Intake (it gets SIMPLER)
+  Open the workflow. Delete the Condition/If-Else and both branches entirely.
+
+  What's left should be exactly:
+     TRIGGER  Contact Tag Added -> start-funnel
+     ACTION   Internal Notification (SMS to +13476284767)
+                "New WorkTruck lead — check the app."
+
+  That's the whole workflow. Publish.
+
+STEP 3 — new workflow: "Funnel Complete"
+  Create Workflow -> Start from Scratch -> name it: Funnel Complete
+
+  TRIGGER  Contact Tag Added -> funnel-done
+
+  ACTION 1  Create Opportunity
+              Pipeline:       WTS Sales
+              Pipeline Stage: New Lead
+              Opp Name:       [Contact First Name] — [Trade]
+              Opp Value:      297
+
+  ACTION 2  Internal Notification -> SMS -> +13476284767
+              "COMPLETED — [first name], [trade]. [biggest problem]."
+
+  Settings: Re-Entry ON, Stop on Response OFF.
+  Publish.
+
+STEP 4 — test
+  Submit start.html with a NEW email. Complete all four screens.
+  Expect:
+    - text #1 within seconds (contact captured)
+    - text #2 about a minute later (completed, with their answers)
+    - contact in Sales with tags: start-funnel, funnel-done
+    - card in WTS Sales -> New Lead at $297
+
+WHY THIS IS BETTER THAN THE IF/ELSE
+  - No condition to mis-evaluate
+  - Each workflow does one thing
+  - funnel-done becomes a reusable audience: smart lists, broadcasts, ad exclusions
+  - Anyone with start-funnel but NOT funnel-done is your abandoner list,
+    which is exactly the trigger for the abandonment sequence you still owe yourself
