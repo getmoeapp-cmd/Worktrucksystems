@@ -77,6 +77,8 @@ body{
 /* ── Layout ── */
 .wt-main{flex:1;width:100%;max-width:var(--shell-max);margin:0 auto;padding:34px 20px 40px;}
 .wt-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:start;}
+.wt-grid.is-hero{grid-template-columns:1fr;}
+.wt-grid.is-hero .wt-thread{display:none;}
 
 /* ── Cards ── */
 .wt-step{animation:wt-in .38s var(--ease) both;}
@@ -198,6 +200,31 @@ body{
 .wt-anchor__inner{max-width:var(--shell-max);margin:0 auto;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);}
 .wt-anchor b{font-family:var(--display);font-weight:800;font-size:15px;color:var(--orange-deep);letter-spacing:-.01em;}
 
+
+/* ── Hero ── */
+.wt-hero{animation:wt-in .45s var(--ease) both;text-align:center;max-width:640px;margin:0 auto;}
+.wt-hero__hd{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(32px,8.5vw,52px);line-height:1.02;letter-spacing:-.03em;
+  color:var(--ink);margin:0 0 16px;text-wrap:balance;
+}
+.wt-hero__hd span{color:var(--orange-deep);}
+.wt-hero__sub{font-size:17px;line-height:1.5;color:var(--muted);margin:0 0 18px;}
+.wt-hero__price{
+  font-family:var(--body);font-size:15px;color:var(--ink);margin:0 0 26px;
+}
+.wt-hero__price b{
+  font-family:var(--display);font-weight:900;font-size:26px;
+  letter-spacing:-.02em;color:var(--ink);
+}
+.wt-hero__step{
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  color:var(--muted);margin:18px 0 0;
+}
+.wt-hero__step b{color:var(--orange-deep);font-weight:600;}
+.wt-go--hero{margin:14px auto 0;display:block;}
+.wt-hero__note{font-size:13px;color:var(--muted);margin:14px 0 0;}
+
 @media (min-width:920px){
   .wt-grid{grid-template-columns:1fr 372px;gap:56px;}
   .wt-thread{position:sticky;top:118px;min-height:300px;}
@@ -274,6 +301,9 @@ var VIDEOS = {
 };
 
 var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/bookings/demo-xoqfmqyc2';
+
+/* The 2-minute overview that plays before anything is asked. Same embed format as VIDEOS. */
+var HERO_VIDEO = '';
 /* ══════════════════════════════════════════════════ */
 
 var stage=document.getElementById('stage'), thread=document.getElementById('thread'),
@@ -390,10 +420,15 @@ var STEPS=[
 ];
 
 function paint(){
-  var done=Math.min(state.step,TOTAL),bars=slats.children;
+  var onHero = state.step===0;
+  slats.style.visibility  = onHero ? 'hidden' : 'visible';
+  countEl.style.visibility = onHero ? 'hidden' : 'visible';
+  if(onHero) return;
+
+  var done=Math.min(state.step-1,TOTAL),bars=slats.children;
   for(var i=0;i<bars.length;i++) bars[i].classList.toggle('is-done',i<done);
   slats.setAttribute('aria-valuenow',done);
-  countEl.innerHTML='<b>0'+Math.min(state.step+1,TOTAL)+'</b> / 04';
+  countEl.innerHTML='<b>0'+Math.min(state.step,TOTAL)+'</b> / 04';
 }
 
 /* ── Thread ── */
@@ -444,23 +479,45 @@ function threadFor(key){
 /* ── Render ── */
 function render(){
   paint();
-  if(state.step===0) return renderContact();
-  if(state.step<4)   return renderQuestion(STEPS[state.step-1]);
+  document.querySelector('.wt-grid').classList.toggle('is-hero', state.step===0);
+  if(state.step===0) return renderHero();
+  if(state.step===1) return renderContact();
+  if(state.step<5)   return renderQuestion(STEPS[state.step-2]);
   return renderDemo();
+}
+
+function renderHero(){
+  var player = HERO_VIDEO
+    ? '<iframe src="'+HERO_VIDEO+'" title="WorkTruck Systems overview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
+    : '<div class="wt-video__slot">Overview video<br>Set HERO_VIDEO in the config block</div>';
+
+  stage.innerHTML='<div class="wt-hero">'
+    +'<h1 class="wt-hero__hd">You run the truck.<br><span>It runs the office.</span></h1>'
+    +'<p class="wt-hero__sub">Twelve systems that answer your missed calls, chase your estimates, collect your invoices, and bring old customers back \u2014 while you\u2019re on the job.</p>'
+    +'<p class="wt-hero__price"><b>$297</b>/mo \u00b7 website built free \u00b7 no contract</p>'
+    +'<div class="wt-video">'+player+'</div>'
+    +'<p class="wt-hero__step"><b>Step 1</b> \u2014 watch this, it\u2019s 2 minutes</p>'
+    +'<button class="wt-go wt-go--hero" id="heroGo">Show me how it works \u2192</button>'
+    +'<p class="wt-hero__note">Then 4 quick taps and the demo for your trade plays right here.</p>'
+    +'</div>';
+
+  document.getElementById('heroGo').addEventListener('click',function(){
+    state.step=1; render(); window.scrollTo({top:0,behavior:'smooth'});
+  });
 }
 
 function renderContact(){
   stage.innerHTML='<div class="wt-step">'
     +'<p class="wt-eyebrow">01 \u2014 Start here</p>'
-    +'<h1 class="wt-ask">Where do we send your demo?</h1>'
-    +'<p class="wt-sub">Three quick questions after this, then the 5-minute demo plays right here. No sales call unless you want one.</p>'
+    +'<h1 class="wt-ask">Let\u2019s get started.</h1>'
+    +'<p class="wt-sub">Three quick taps after this and the demo plays right here on this page. No sales call unless you ask for one.</p>'
     +'<div class="wt-fields">'
     + field('name','First name','Mike')
     + field('cell','Mobile','(813) 555-0142','tel')
     + field('email','Email','mike@alvarezwash.com','email')
     +'</div>'
     +'<button class="wt-go" id="go">Let\u2019s get started \u2192</button>'
-    +'<p class="wt-fine">We\u2019ll text and email you the demo link so you don\u2019t lose it. Message and data rates may apply. Reply STOP to opt out at any time. No contract, and nobody calls you unless you ask.</p>'
+    +'<p class="wt-fine">We\u2019ll text you the link so you can come back to it later. Message and data rates may apply. Reply STOP to opt out at any time. No contract, and nobody calls you unless you ask.</p>'
     +'</div>';
   ['name','cell','email'].forEach(function(k){
     var el=document.getElementById('f_'+k);
@@ -589,7 +646,7 @@ function startFunnel(){
   if(window.fbq) fbq('track','Lead');
 
   post(p).then(function(){
-    state.step=1; render(); window.scrollTo({top:0,behavior:'smooth'});
+    state.step=2; render(); window.scrollTo({top:0,behavior:'smooth'});
   });
 }
 
