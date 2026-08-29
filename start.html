@@ -509,15 +509,15 @@ function renderHero(){
 function renderContact(){
   stage.innerHTML='<div class="wt-step">'
     +'<p class="wt-eyebrow">04 \u2014 Your demo</p>'
-    +'<h1 class="wt-ask">Where should we send it?</h1>'
-    +'<p class="wt-sub">You already picked your trade. Name and email unlock the demo. Mobile is optional.</p>'
+    +'<h1 class="wt-ask">You\u2019re in.</h1>'
+    +'<p class="wt-sub">Demo plays on this page. Name and email so we can set it up for your trade.</p>'
     +'<div class="wt-fields">'
     + field('name','First name','Mike')
     + field('cell','Mobile (optional)','(813) 555-0142','tel')
     + field('email','Email','mike@alvarezwash.com','email')
     +'</div>'
     +'<button class="wt-go" id="go">Show my demo \u2192</button>'
-    +'<p class="wt-fine">Email is enough. If you add a mobile we\u2019ll text the link. Reply STOP to opt out. Nobody calls unless you ask.</p>'
+    +'<p class="wt-fine">We\u2019ll email you this page so you can come back. Mobile is optional.</p>'
     +'</div>';
   ['name','cell','email'].forEach(function(k){
     var el=document.getElementById('f_'+k);
@@ -759,7 +759,10 @@ function paintDemo(id){
     });
   });
 }
-
+/* deep link: ?demo=1 jumps straight to the demo */
+     var dq=new URLSearchParams(location.search);
+     if(dq.get('demo')==='1'){ ['name','trade','problem','website'].forEach(function(k){ if(dq.get(k)) state[k]=dq.get(k); }); state.step=5; }
+     
 render();
 </script>
 </body>
