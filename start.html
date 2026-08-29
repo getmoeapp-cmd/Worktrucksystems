@@ -263,7 +263,7 @@ body{
     <div id="stage" aria-live="polite"></div>
     <aside class="wt-thread" id="thread" aria-label="The system built for your problem">
       <div class="wt-thread__hd"><i class="wt-thread__dot"></i><span id="threadName">Twelve systems</span></div>
-      <p class="wt-thread__idle" id="idle">Three quick taps and we'll show you the system that handles whatever's costing you the most \u2014 running on your name, your trade.</p>
+      <p class="wt-thread__idle" id="idle">Three quick taps and we'll show you the system that handles whatever's costing you the most — running on your name, your trade.</p>
     </aside>
   </div>
 </main>
@@ -404,19 +404,19 @@ var PROBLEMS={
 };
 
 var STEPS=[
-  {key:'trade',eyebrow:'02 \u2014 The truck',
+  {key:'trade',eyebrow:'01 \u2014 The truck',
    ask:'What kind of work do you do?',
    sub:'So everything we show you is built for your trade.',
    opts:TRADES},
-  {key:'problem',eyebrow:'03 \u2014 The real one',
+  {key:'problem',eyebrow:'02 \u2014 The real one',
    ask:'What\u2019s costing you the most right now?',
    sub:'Pick the one that actually keeps you up. We\u2019ll show you that system running.',
    opts:['Missed calls going to voicemail','Estimates I never hear back on','Chasing people for money','Customers who don\u2019t come back','Not enough reviews','Too much time on paperwork']},
-  {key:'website',eyebrow:'04 \u2014 The storefront',
+  {key:'website',eyebrow:'03 \u2014 The storefront',
    ask:'Do you have a website?',
    sub:'Straight answer \u2014 it changes what we build you.',
    opts:['No','Facebook page only','Yes, but it\u2019s outdated','Yes, and it\u2019s fine'],
-   final:true, cta:'Show me how it works'}
+   final:true, cta:'Continue'}
 ];
 
 function paint(){
@@ -481,24 +481,24 @@ function render(){
   paint();
   document.querySelector('.wt-grid').classList.toggle('is-hero', state.step===0);
   if(state.step===0) return renderHero();
-  if(state.step===1) return renderContact();
-  if(state.step<5)   return renderQuestion(STEPS[state.step-2]);
+  if(state.step>=1 && state.step<=3) return renderQuestion(STEPS[state.step-1]);
+  if(state.step===4) return renderContact();
   return renderDemo();
 }
 
 function renderHero(){
   var player = HERO_VIDEO
-    ? '<iframe src="'+HERO_VIDEO+'" title="WorkTruck Systems overview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
-    : '<div class="wt-video__slot">Overview video<br>Set HERO_VIDEO in the config block</div>';
+    ? '<div class="wt-video"><iframe src="'+HERO_VIDEO+'" title="WorkTruck Systems overview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>'
+      +'<p class="wt-hero__step">2-minute overview</p>'
+    : '';
 
   stage.innerHTML='<div class="wt-hero">'
     +'<h1 class="wt-hero__hd">You run the truck.<br><span>It runs the office.</span></h1>'
     +'<p class="wt-hero__sub">Twelve systems that answer your missed calls, chase your estimates, collect your invoices, and bring old customers back \u2014 while you\u2019re on the job.</p>'
     +'<p class="wt-hero__price"><b>$297</b>/mo \u00b7 website built free \u00b7 no contract</p>'
-    +'<div class="wt-video">'+player+'</div>'
-    +'<p class="wt-hero__step"><b>Step 1</b> \u2014 watch this, it\u2019s 2 minutes</p>'
-    +'<button class="wt-go wt-go--hero" id="heroGo">Show me how it works \u2192</button>'
-    +'<p class="wt-hero__note">Then 4 quick taps and the demo for your trade plays right here.</p>'
+    +player
+    +'<button class="wt-go wt-go--hero" id="heroGo">See it on your trade \u2192</button>'
+    +'<p class="wt-hero__note">Three taps. Then it runs for your trade.</p>'
     +'</div>';
 
   document.getElementById('heroGo').addEventListener('click',function(){
@@ -508,16 +508,16 @@ function renderHero(){
 
 function renderContact(){
   stage.innerHTML='<div class="wt-step">'
-    +'<p class="wt-eyebrow">01 \u2014 Start here</p>'
-    +'<h1 class="wt-ask">Let\u2019s get started.</h1>'
-    +'<p class="wt-sub">Three quick taps after this and the demo plays right here on this page. No sales call unless you ask for one.</p>'
+    +'<p class="wt-eyebrow">04 \u2014 Your demo</p>'
+    +'<h1 class="wt-ask">Where should we send it?</h1>'
+    +'<p class="wt-sub">You already picked your trade. Name and email unlock the demo. Mobile is optional.</p>'
     +'<div class="wt-fields">'
     + field('name','First name','Mike')
-    + field('cell','Mobile','(813) 555-0142','tel')
+    + field('cell','Mobile (optional)','(813) 555-0142','tel')
     + field('email','Email','mike@alvarezwash.com','email')
     +'</div>'
-    +'<button class="wt-go" id="go">Let\u2019s get started \u2192</button>'
-    +'<p class="wt-fine">We\u2019ll text you the link so you can come back to it later. Message and data rates may apply. Reply STOP to opt out at any time. No contract, and nobody calls you unless you ask.</p>'
+    +'<button class="wt-go" id="go">Show my demo \u2192</button>'
+    +'<p class="wt-fine">Email is enough. If you add a mobile we\u2019ll text the link. Reply STOP to opt out. Nobody calls unless you ask.</p>'
     +'</div>';
   ['name','cell','email'].forEach(function(k){
     var el=document.getElementById('f_'+k);
@@ -573,8 +573,7 @@ function renderQuestion(s){
       var go=document.getElementById('submit');
       go.disabled=true; go.textContent='One sec\u2026';
       threadFor(s.key);
-      state.step++;
-      finishFunnel();
+      state.step=4;
       setTimeout(function(){
         render();
         window.scrollTo({top:0,behavior:'smooth'});
@@ -624,9 +623,9 @@ function startFunnel(){
   ['name','cell','email'].forEach(function(k){
     var input=document.getElementById('f_'+k), wrap=document.getElementById('w_'+k);
     var v=input.value.trim();
-    var bad=!v
-      ||(k==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v))
-      ||(k==='cell'&&v.replace(/\D/g,'').length<10);
+    var bad=(k==='cell')
+      ? (!!v && v.replace(/\D/g,'').length<10)
+      : (!v || (k==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)));
     wrap.classList.toggle('has-error',bad);
     if(bad){ok=false;}else{state[k]=v;}
   });
@@ -646,7 +645,8 @@ function startFunnel(){
   if(window.fbq) fbq('track','Lead');
 
   post(p).then(function(){
-    state.step=2; render(); window.scrollTo({top:0,behavior:'smooth'});
+    finishFunnel();
+    state.step=5; render(); window.scrollTo({top:0,behavior:'smooth'});
   });
 }
 
@@ -718,7 +718,7 @@ function paintDemo(id){
   var url=VIDEOS[id]||'';
   var player = url
     ? '<iframe src="'+url+'" title="'+esc(sys[1])+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
-    : '<div class="wt-video__slot">System '+id+' \u00b7 '+esc(sys[1])+'<br>Add the embed URL to VIDEOS in the config block</div>';
+    : '<div class="wt-video__slot">The texts this system sends are in the thread. The clip for this one isn\u2019t up yet.</div>';
 
   var tiles='';
   SYSTEMS.forEach(function(s){
@@ -744,8 +744,8 @@ function paintDemo(id){
     +'<p class="wt-rest__sub">Tap any one to watch it \u2014 30 seconds each. All twelve are included at $297/mo.</p>'
     +'<div class="wt-rest__grid" id="tiles">'+tiles+'</div></div>'
     +'<div class="wt-book">'
-    +'<h2 class="wt-book__hd">Want to see it running on your own number?</h2>'
-    +'<p class="wt-book__sub">Fifteen minutes, no slides. I\u2019ll set it up live on your line and you can watch a missed call get answered. Nothing to prepare.</p>'
+    +'<h2 class="wt-book__hd">Start now \u2014 $297/mo</h2>'
+    +'<p class="wt-book__sub">Website built free. No setup fee. Cancel any month. Fifteen minutes and I\u2019ll put it on your number.</p>'
     +'<div class="wt-cal"><iframe src="'+CALENDAR_URL+'" scrolling="no" title="Book a demo call"></iframe></div>'
     +'<div class="wt-next">'
     +'<a href="tel:+13473421911"><span>Rather talk now</span> Call us \u2192</a>'
