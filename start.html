@@ -745,12 +745,9 @@ function paintDemo(id){
     +'<div class="wt-rest__grid" id="tiles">'+tiles+'</div></div>'
     +'<div class="wt-book">'
     +'<h2 class="wt-book__hd">Start now \u2014 $297/mo</h2>'
-    +'<p class="wt-book__sub">Website built free. No setup fee. Cancel any month. Fifteen minutes and I\u2019ll put it on your number.</p>'
-    +'<div class="wt-cal"><iframe src="'+CALENDAR_URL+'" scrolling="no" title="Book a demo call"></iframe></div>'
-    +'<div class="wt-next">'
-    +'<a href="tel:+13473421911"><span>Rather talk now</span> Call us \u2192</a>'
-    +'<a href="sms:+13473421911"><span>Quick question</span> Text us \u2192</a>'
-    +'</div></div></div>';
+    +'<p class="wt-book__sub">Website built free. No setup fee. Cancel any month. Opens a 20-minute setup \u2014 not a sales deck.</p>'
+    +'<a class="wt-go" href="'+CALENDAR_URL+'" target="_blank" rel="noopener">Book a 20-min setup \u2192</a>'
+    +'</div></div>';
 
   Array.prototype.forEach.call(document.querySelectorAll('#tiles .wt-sys'),function(b){
     b.addEventListener('click',function(){
