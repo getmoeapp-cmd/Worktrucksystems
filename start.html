@@ -437,7 +437,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
    CONFIG
    ══════════════════════════════════════════════════ */
 var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origin, no CORS. */
-var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/bookings/demo-xoqfmqyc2';
+var CALENDAR_URL = 'https://link.worktrucksystems.com/widget/booking/ZWdnOs0CCeKWWO1E5bqp';
 /* ══════════════════════════════════════════════════ */
 
 var state = { name:'', biz:'', phone:'', email:'', trade:'', help:'', website:'', submitted:false };
@@ -617,7 +617,12 @@ function showCalendar(){
 var scheduled=false;
 window.addEventListener('message', function(e){
   if(scheduled) return;
-  if(typeof e.origin!=='string' || e.origin.indexOf('leadconnectorhq.com')===-1) return;
+  /* The widget is served from the white-label domain now; msgsndr is the
+     embed helper's origin. Accept all three or Schedule never fires. */
+  if(typeof e.origin!=='string') return;
+  if(e.origin.indexOf('leadconnectorhq.com')===-1
+     && e.origin.indexOf('link.worktrucksystems.com')===-1
+     && e.origin.indexOf('msgsndr.com')===-1) return;
   var d; try{ d = typeof e.data==='string' ? e.data : JSON.stringify(e.data); }catch(err){ return; }
   if(/booked|booking[-_ ]?(confirmed|success)|appointment/i.test(d)){
     scheduled=true;
