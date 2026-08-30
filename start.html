@@ -135,6 +135,9 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 /* ── Form ── */
 .lead{padding:58px 0 64px}
+/* Clears the 68px sticky header when jumping to #form, so the
+   "Step 1 of 2" eyebrow isn't hidden behind it */
+#form{scroll-margin-top:84px}
 .lead h2{font-size:clamp(26px,6.4vw,40px)}
 .lead-sub{color:var(--muted);margin:0 0 28px}
 .fields{display:grid;gap:15px;max-width:560px}
