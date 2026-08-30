@@ -386,6 +386,18 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       <p class="err" id="chipErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
 
+    <div class="qual" id="w_site">
+      <p class="qual-hd">Do you have a website already?</p>
+      <p class="qual-sub">Tap one — either way, we build you one free.</p>
+      <div class="chips" id="siteChips">
+        <button type="button" class="chip">Yes, and it's fine<span class="tick">✓</span></button>
+        <button type="button" class="chip">Yes, but it needs work<span class="tick">✓</span></button>
+        <button type="button" class="chip">No, I don't have one<span class="tick">✓</span></button>
+        <button type="button" class="chip">Not sure<span class="tick">✓</span></button>
+      </div>
+      <p class="err" id="siteErr" style="margin-top:8px">Please tap the one that fits best</p>
+    </div>
+
     <button class="btn" id="submitLead" type="button">Show me available times &rarr;</button>
     <p class="fine">By submitting, you agree to receive text messages from WorkTruck Systems about your request. Message and data rates may apply. Reply STOP to opt out. <a href="/terms.html">SMS terms</a> · <a href="/privacy.html">Privacy policy</a>. No spam, no pressure — a real person reads this.</p>
   </div>
@@ -425,7 +437,7 @@ var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origi
 var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/bookings/demo-xoqfmqyc2';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', biz:'', phone:'', email:'', trade:'', help:'', submitted:false };
+var state = { name:'', biz:'', phone:'', email:'', trade:'', help:'', website:'', submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -463,6 +475,18 @@ Array.prototype.forEach.call(document.querySelectorAll('#chips .chip'), function
   });
 });
 
+/* ── Website status chips — single select, same pattern as above ── */
+Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), function(btn){
+  btn.addEventListener('click', function(){
+    markStarted();
+    Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), function(b){
+      b.classList.toggle('is-on', b===btn);
+    });
+    state.website = btn.textContent.replace('✓','').trim();
+    $('siteErr').style.display='none';
+  });
+});
+
 /* ── Validation ── */
 function validate(){
   var ok=true;
@@ -486,10 +510,17 @@ function validate(){
   $('chipErr').style.display = chipBad ? 'block' : 'none';
   if(chipBad) ok=false;
 
+  /* Set REQUIRE_WEBSITE to false to make this question optional */
+  var REQUIRE_WEBSITE = true;
+  var siteBad = REQUIRE_WEBSITE && !state.website;
+  $('siteErr').style.display = siteBad ? 'block' : 'none';
+  if(siteBad) ok=false;
+
   if(!ok){
     var firstErr = document.querySelector('.has-error input, .has-error select');
     if(firstErr){ firstErr.focus(); }
     else if(chipBad){ $('w_help').scrollIntoView({behavior:'smooth',block:'center'}); }
+    else if(siteBad){ $('w_site').scrollIntoView({behavior:'smooth',block:'center'}); }
   }
   return ok;
 }
@@ -524,6 +555,7 @@ $('submitLead').addEventListener('click', function(){
   p.businessName   = state.biz;
   p.trade          = state.trade;
   p.biggest_problem= state.help;
+  p.website_status = state.website;
   p.funnel_stage   = 'complete';
   p.demo_status    = 'Not Sent';
   p.funnel         = 'paid-lp';
@@ -546,6 +578,7 @@ window.addEventListener('pagehide', function(){
     var p=utms();
     p.firstName=state.name.split(' ')[0]; p.email=state.email; p.phone=state.phone;
     p.businessName=state.biz; p.trade=state.trade; p.biggest_problem=state.help;
+    p.website_status=state.website;
     p.funnel_stage='complete'; p.funnel='paid-lp';
     p.source='Facebook Ads — /start.html';
     navigator.sendBeacon(WEBHOOK_URL, new Blob([JSON.stringify(p)],{type:'application/json'}));
