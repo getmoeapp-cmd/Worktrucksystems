@@ -153,6 +153,21 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .field.has-error input,.field.has-error select{border-color:#E2564A}
 .err{display:none;color:#E2564A;font-size:13px;margin:5px 0 0;font-family:var(--plate);letter-spacing:.04em}
 .field label .opt{font-weight:400;letter-spacing:.06em;text-transform:none;opacity:.7}
+
+/* ── Gated steps: only one is in the layout at a time, so there is
+      nothing below to scroll to and nothing ahead to read. ── */
+.step{display:none}
+.step.is-on{display:block;animation:stepIn .22s ease both}
+@keyframes stepIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nav{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:26px}
+.nav .btn{margin-top:0}
+.back{background:none;border:0;padding:6px 2px;cursor:pointer;color:var(--muted);
+  font-family:var(--plate);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+.back:hover{color:var(--char)}
+.bars{display:flex;gap:6px;margin:0 0 26px;max-width:560px}
+.bars i{flex:1;height:3px;border-radius:2px;background:var(--line);transition:background .3s}
+.bars i.on{background:var(--orange)}
+@media(prefers-reduced-motion:reduce){.step.is-on{animation:none}}
 .field.has-error .err{display:block}
 @media (min-width:640px){
   .fields{grid-template-columns:1fr 1fr}
@@ -334,10 +349,13 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 <section class="lead" id="form">
   <div class="wrap">
-    <p class="eyebrow">Step 1 of 2 — about 30 seconds</p>
-    <h2>Let's see if WorkTruck Systems fits your business.</h2>
-    <p class="lead-sub">Tell us a little about your business. Then pick a time for a 20-minute demo call.</p>
+    <p class="eyebrow" id="stepEyebrow">Step 1 of 5 — about 30 seconds</p>
+    <h2 id="stepHead">Let's see if WorkTruck Systems fits your business.</h2>
+    <p class="lead-sub" id="stepSub">First — who are we talking to?</p>
 
+    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <div class="step is-on" data-step="1">
     <div class="fields">
       <div class="field" id="w_name">
         <label for="f_name">First name</label>
@@ -353,6 +371,12 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
         <input id="f_biz" type="text" placeholder="Alvarez Pressure Washing" autocomplete="organization">
         <p class="err">Please enter your business name</p>
       </div>
+    </div>
+    <div class="nav"><button class="btn go" type="button" data-next="2">Continue &rarr;</button></div>
+    </div><!-- /step 1 -->
+
+    <div class="step" data-step="2">
+    <div class="fields">
       <div class="field" id="w_phone">
         <label for="f_phone">Mobile phone</label>
         <input id="f_phone" type="tel" placeholder="(347) 555-0142" autocomplete="tel">
@@ -363,6 +387,12 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
         <input id="f_email" type="email" placeholder="mike@alvarezwash.com" autocomplete="email">
         <p class="err">Please enter a valid email</p>
       </div>
+    </div>
+    <div class="nav"><button class="btn go" type="button" data-next="3">Continue &rarr;</button><button class="back" type="button" data-back="1">&larr; Back</button></div>
+    </div><!-- /step 2 -->
+
+    <div class="step" data-step="3">
+    <div class="fields">
       <div class="field full" id="w_trade">
         <label for="f_trade">Trade / business type</label>
         <select id="f_trade">
@@ -377,10 +407,11 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
         <p class="err">Please pick your trade</p>
       </div>
     </div>
+    <div class="nav"><button class="btn go" type="button" data-next="4">Continue &rarr;</button><button class="back" type="button" data-back="2">&larr; Back</button></div>
+    </div><!-- /step 3 -->
 
+    <div class="step" data-step="4">
     <div class="qual" id="w_help">
-      <p class="qual-hd">What would you most like help with right now?</p>
-      <p class="qual-sub">Tap one — no typing.</p>
       <div class="chips" id="chips">
         <button type="button" class="chip">Getting more leads<span class="tick">✓</span></button>
         <button type="button" class="chip">Responding faster to leads<span class="tick">✓</span></button>
@@ -393,10 +424,11 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       </div>
       <p class="err" id="chipErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
+    <div class="nav"><button class="btn go" type="button" data-next="5">Continue &rarr;</button><button class="back" type="button" data-back="3">&larr; Back</button></div>
+    </div><!-- /step 4 -->
 
+    <div class="step" data-step="5">
     <div class="qual" id="w_site">
-      <p class="qual-hd">Do you have a website already?</p>
-      <p class="qual-sub">Tap one — either way, we build you one free.</p>
       <div class="chips" id="siteChips">
         <button type="button" class="chip">Yes, and it's fine<span class="tick">✓</span></button>
         <button type="button" class="chip">Yes, but it needs work<span class="tick">✓</span></button>
@@ -405,8 +437,10 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       </div>
       <p class="err" id="siteErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
-
     <button class="btn" id="submitLead" type="button">Show me available times &rarr;</button>
+    <div class="nav"><button class="back" type="button" data-back="4">&larr; Back</button></div>
+    </div><!-- /step 5 -->
+
     <p class="fine">By submitting, you agree to receive text messages from WorkTruck Systems about your request. Message and data rates may apply. Reply STOP to opt out. <a href="/terms.html">SMS terms</a> · <a href="/privacy.html">Privacy policy</a>. No spam, no pressure — a real person reads this.</p>
   </div>
 </section>
@@ -480,6 +514,8 @@ Array.prototype.forEach.call(document.querySelectorAll('#chips .chip'), function
     });
     state.help = btn.textContent.replace('✓','').trim();
     $('chipErr').style.display='none';
+    /* Answering advances — the tick shows first so the tap registers */
+    setTimeout(function(){ if(step===4) goStep(5); }, 260);
   });
 });
 
@@ -495,44 +531,111 @@ Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), func
   });
 });
 
-/* ── Validation ── */
-function validate(){
-  var ok=true;
-  function bad(wrapId, isBad){
-    $(wrapId).classList.toggle('has-error', isBad);
-    if(isBad) ok=false;
-  }
+/* ── Gated steps ──────────────────────────────────────────────
+   Only the active step is in the layout (.step{display:none}), so a
+   lead cannot scroll ahead or read what is coming. Each step is
+   validated before it will let go. */
+var TOTAL_STEPS = 5, step = 1;
+
+var STEP_COPY = {
+  1:{eyebrow:'Step 1 of 5 — about 30 seconds', head:"Let's see if WorkTruck Systems fits your business.", sub:'First — who are we talking to?'},
+  2:{eyebrow:'Step 2 of 5', head:'Where should we reach you?', sub:"We'll text the confirmation — no spam, no list."},
+  3:{eyebrow:'Step 3 of 5', head:'What kind of work do you do?', sub:'So everything we show you is built for your trade.'},
+  4:{eyebrow:'Step 4 of 5', head:'What would you most like help with right now?', sub:'Tap one — no typing.'},
+  5:{eyebrow:'Step 5 of 5 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we build you one free.'}
+};
+
+function readFields(){
   state.name  = $('f_name').value.trim();
   state.last  = $('f_last').value.trim();   /* optional — never validated */
   state.biz   = $('f_biz').value.trim();
   state.phone = $('f_phone').value.trim();
   state.email = $('f_email').value.trim();
   state.trade = $('f_trade').value;
+}
+function mark(wrapId, isBad){
+  $(wrapId).classList.toggle('has-error', isBad);
+  return !isBad;
+}
 
-  bad('w_name',  !state.name);
-  bad('w_biz',   !state.biz);
-  bad('w_phone', state.phone.replace(/\D/g,'').length<10);
-  bad('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
-  bad('w_trade', !state.trade);
-
-  var chipBad = !state.help;
-  $('chipErr').style.display = chipBad ? 'block' : 'none';
-  if(chipBad) ok=false;
-
-  /* Set REQUIRE_WEBSITE to false to make this question optional */
-  var REQUIRE_WEBSITE = true;
-  var siteBad = REQUIRE_WEBSITE && !state.website;
-  $('siteErr').style.display = siteBad ? 'block' : 'none';
-  if(siteBad) ok=false;
-
+/* Validates one step. Every check runs (no short-circuit) so all
+   offending fields light up at once, not one at a time. */
+function validateStep(n){
+  readFields();
+  var ok = true;
+  if(n===1){
+    var a = mark('w_name', !state.name);
+    var b = mark('w_biz',  !state.biz);
+    ok = a && b;
+  } else if(n===2){
+    var c = mark('w_phone', state.phone.replace(/\D/g,'').length<10);
+    var d = mark('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
+    ok = c && d;
+  } else if(n===3){
+    ok = mark('w_trade', !state.trade);
+  } else if(n===4){
+    ok = !!state.help;
+    $('chipErr').style.display = ok ? 'none' : 'block';
+  } else if(n===5){
+    /* Set REQUIRE_WEBSITE to false to make this question optional */
+    var REQUIRE_WEBSITE = true;
+    ok = !REQUIRE_WEBSITE || !!state.website;
+    $('siteErr').style.display = ok ? 'none' : 'block';
+  }
   if(!ok){
-    var firstErr = document.querySelector('.has-error input, .has-error select');
-    if(firstErr){ firstErr.focus(); }
-    else if(chipBad){ $('w_help').scrollIntoView({behavior:'smooth',block:'center'}); }
-    else if(siteBad){ $('w_site').scrollIntoView({behavior:'smooth',block:'center'}); }
+    var firstErr = document.querySelector('.step.is-on .has-error input, .step.is-on .has-error select');
+    if(firstErr) firstErr.focus();
   }
   return ok;
 }
+
+/* Full sweep before submit — a guard against anyone reaching step 5
+   with an earlier step somehow incomplete. */
+function validate(){
+  for(var n=1;n<=TOTAL_STEPS;n++){
+    if(!validateStep(n)){ goStep(n); return false; }
+  }
+  return true;
+}
+
+function goStep(n, quiet){
+  step = Math.max(1, Math.min(TOTAL_STEPS, n));
+  Array.prototype.forEach.call(document.querySelectorAll('.step'), function(el){
+    el.classList.toggle('is-on', +el.getAttribute('data-step') === step);
+  });
+  Array.prototype.forEach.call($('bars').children, function(bar,i){
+    bar.classList.toggle('on', i < step);
+  });
+  var c = STEP_COPY[step];
+  if(c){ $('stepEyebrow').textContent=c.eyebrow; $('stepHead').textContent=c.head; $('stepSub').textContent=c.sub; }
+  if(quiet) return;
+  $('form').scrollIntoView({behavior:'smooth', block:'start'});
+  var first = document.querySelector('.step.is-on input, .step.is-on select');
+  if(first && window.matchMedia('(min-width:781px)').matches) first.focus();
+  track('LeadStep'+step, {}, true);
+}
+
+Array.prototype.forEach.call(document.querySelectorAll('.step .go'), function(btn){
+  btn.addEventListener('click', function(){
+    var next = +btn.getAttribute('data-next');
+    if(validateStep(next-1)) goStep(next);
+  });
+});
+Array.prototype.forEach.call(document.querySelectorAll('.step .back'), function(btn){
+  btn.addEventListener('click', function(){ goStep(+btn.getAttribute('data-back')); });
+});
+
+goStep(1, true);   /* paint the progress bars without scrolling on load */
+
+/* Enter advances instead of doing nothing */
+Array.prototype.forEach.call(document.querySelectorAll('.step input'), function(inp){
+  inp.addEventListener('keydown', function(e){
+    if(e.key!=='Enter') return;
+    e.preventDefault();
+    var go = document.querySelector('.step.is-on .go');
+    if(go) go.click(); else $('submitLead').click();
+  });
+});
 
 /* ── Submit → GHL, then straight to the calendar ──
    One post, funnel_stage:'complete', so the existing GHL tag wiring fires everything:
