@@ -152,6 +152,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .field input:focus,.field select:focus{border-color:var(--orange);outline:none}
 .field.has-error input,.field.has-error select{border-color:#E2564A}
 .err{display:none;color:#E2564A;font-size:13px;margin:5px 0 0;font-family:var(--plate);letter-spacing:.04em}
+.field label .opt{font-weight:400;letter-spacing:.06em;text-transform:none;opacity:.7}
 .field.has-error .err{display:block}
 @media (min-width:640px){
   .fields{grid-template-columns:1fr 1fr}
@@ -343,6 +344,10 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
         <input id="f_name" type="text" placeholder="Mike" autocomplete="given-name">
         <p class="err">Please enter your first name</p>
       </div>
+      <div class="field" id="w_last">
+        <label for="f_last">Last name <span class="opt">(optional)</span></label>
+        <input id="f_last" type="text" placeholder="Alvarez" autocomplete="family-name">
+      </div>
       <div class="field" id="w_biz">
         <label for="f_biz">Business name</label>
         <input id="f_biz" type="text" placeholder="Alvarez Pressure Washing" autocomplete="organization">
@@ -440,7 +445,7 @@ var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origi
 var CALENDAR_URL = 'https://link.worktrucksystems.com/widget/booking/ZWdnOs0CCeKWWO1E5bqp';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', biz:'', phone:'', email:'', trade:'', help:'', website:'', submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', help:'', website:'', submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -462,7 +467,7 @@ function markStarted(){
   formStarted=true;
   track('LeadFormStarted', {}, true);
 }
-['f_name','f_biz','f_phone','f_email','f_trade'].forEach(function(id){
+['f_name','f_last','f_biz','f_phone','f_email','f_trade'].forEach(function(id){
   $(id).addEventListener('focus', markStarted);
 });
 
@@ -498,6 +503,7 @@ function validate(){
     if(isBad) ok=false;
   }
   state.name  = $('f_name').value.trim();
+  state.last  = $('f_last').value.trim();   /* optional — never validated */
   state.biz   = $('f_biz').value.trim();
   state.phone = $('f_phone').value.trim();
   state.email = $('f_email').value.trim();
@@ -552,9 +558,9 @@ $('submitLead').addEventListener('click', function(){
   state.submitted=true;
 
   var p=utms();
-  p.firstName = state.name.split(' ')[0];
-  p.lastName  = state.name.split(' ').slice(1).join(' ');
-  p.name=state.name; p.phone=state.phone; p.email=state.email;
+  p.firstName = state.name;
+  p.lastName  = state.last;
+  p.name=(state.name+' '+state.last).trim(); p.phone=state.phone; p.email=state.email;
   p.businessName   = state.biz;
   p.trade          = state.trade;
   p.biggest_problem= state.help;
@@ -579,7 +585,7 @@ window.addEventListener('pagehide', function(){
   if(!state.submitted || !state.email) return;
   try{
     var p=utms();
-    p.firstName=state.name.split(' ')[0]; p.email=state.email; p.phone=state.phone;
+    p.firstName=state.name; p.lastName=state.last; p.email=state.email; p.phone=state.phone;
     p.businessName=state.biz; p.trade=state.trade; p.biggest_problem=state.help;
     p.website_status=state.website;
     p.funnel_stage='complete'; p.funnel='paid-lp';
@@ -591,9 +597,8 @@ window.addEventListener('pagehide', function(){
 /* ── Screen 2: calendar with their info carried over ── */
 function calendarSrc(){
   var q=new URLSearchParams();
-  if(state.name)  q.set('first_name', state.name.split(' ')[0]);
-  var last=state.name.split(' ').slice(1).join(' ');
-  if(last) q.set('last_name', last);
+  if(state.name)  q.set('first_name', state.name);
+  if(state.last)  q.set('last_name', state.last);
   if(state.email) q.set('email', state.email);
   if(state.phone) q.set('phone', state.phone.replace(/[^\d+]/g,''));
   return CALENDAR_URL + '?' + q.toString();
