@@ -61,6 +61,7 @@ export default async function handler(req, res) {
   var tags = ['start-funnel'];
   if (body.funnel_stage === 'complete') tags.push('funnel-done');
   if (body.systems_viewed) tags.push('systems-browsed');
+  if (body.funnel === 'paid-lp') tags.push('paid-ad-lead');   /* Facebook/IG paid-traffic LP */
 
   const payload = {
     locationId: LOCATION,
@@ -72,6 +73,9 @@ export default async function handler(req, res) {
     tags:      tags,
     customFields
   };
+
+  /* Standard GHL field — the paid LP collects the business name */
+  if (body.businessName) payload.companyName = String(body.businessName);
 
   /* UTMs land in attribution rather than custom fields */
   if (body.utm_source || body.utm_campaign || body.fbclid) {
