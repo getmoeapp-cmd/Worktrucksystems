@@ -124,6 +124,19 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .gets .c{color:var(--orange);font-weight:700;flex:none}
 .price-note{font-size:14.5px;color:#9B9B98;margin:16px auto 0;max-width:46ch}
 
+/* ── Founder trust block (inside the form) ── */
+.founder{display:flex;gap:14px;align-items:center;max-width:560px;margin:0 0 22px;padding:14px 16px;background:var(--warm);border:1px solid #DDD8CE;border-radius:6px}
+.founder-img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none}
+.founder-name{font-family:var(--plate);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 3px}
+.founder-line{margin:0;font-size:15px;color:#3A3E42;line-height:1.45}
+
+/* ── FAQ under the form ── */
+.faq{padding:6px 0 54px}
+.faq h2{font-size:clamp(22px,5.5vw,30px);margin-bottom:6px}
+
+/* ── Systems closing line ── */
+.sys-more{margin:18px 0 0;font-size:15.5px;color:var(--muted);max-width:60ch;line-height:1.5}
+
 /* ── Trust ── */
 .trust{background:var(--warm);padding:54px 0}
 .trust h2{font-size:clamp(24px,6vw,36px)}
@@ -249,101 +262,9 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       <li>No contract</li>
       <li>We build your website <b>free</b></li>
     </ul>
-    <a class="btn" href="#form" data-goform>Get my free website &rarr;</a>
+    <a class="btn" href="#form" data-goform>See it running on a real account &rarr;</a>
     <p class="hero-note">Takes about 30 seconds. A real person reads every one.</p>
     <p class="hero-alt"><a href="#systems">Or see what it does first &darr;</a></p>
-  </div>
-</section>
-
-<section class="problem">
-  <div class="wrap">
-    <p class="eyebrow">The stuff that costs you jobs</p>
-    <h2>Sound familiar?</h2>
-    <ul class="pains">
-      <li><span class="x">✕</span>You miss a call on a job — and the customer just calls the next contractor.</li>
-      <li><span class="x">✕</span>A lead comes in from your website or Facebook and sits for hours before anyone replies.</li>
-      <li><span class="x">✕</span>You sent the estimate. Then nothing — because chasing it slipped your mind.</li>
-      <li><span class="x">✕</span>Booking one estimate takes five texts back and forth about times.</li>
-      <li><span class="x">✕</span>Happy customer, no Google review — you forgot to ask. Again.</li>
-      <li><span class="x">✕</span>Calls, texts, leads and appointments live in six different places and a napkin.</li>
-    </ul>
-    <p class="problem-close">None of that means you're bad at business. It means you're busy doing the actual work. That's the part we handle.</p>
-  </div>
-</section>
-
-<section class="sys" id="systems">
-  <div class="wrap">
-    <p class="eyebrow">What WorkTruck Systems does</p>
-    <h2>It handles the office. You handle the job.</h2>
-    <p class="sys-sub">One system on your phone. No desk, no software to learn — if you can send a text, you can run it.</p>
-    <div class="cards">
-      <div class="card">
-        <h3>Missed Call Recovery</h3>
-        <p>Miss a call while you're working? The customer automatically gets a text back — before they call the next contractor.</p>
-      </div>
-      <div class="card">
-        <h3>Instant Lead Follow-Up</h3>
-        <p>New website or Facebook lead? They get an immediate text, and you get notified on your phone.</p>
-      </div>
-      <div class="card">
-        <h3>Booking &amp; Reminders</h3>
-        <p>Customers schedule estimates on a real calendar and automatically get confirmations and reminders. Fewer no-shows, fewer dry runs.</p>
-      </div>
-      <div class="card">
-        <h3>Google Review Engine</h3>
-        <p>After every finished job, the happy customer gets asked for a Google review — automatically, at a polite hour.</p>
-      </div>
-      <div class="card">
-        <h3>Customer Follow-Up</h3>
-        <p>Stay in front of leads and past customers automatically, instead of relying on memory and good intentions.</p>
-      </div>
-      <div class="card">
-        <h3>One Organized Inbox</h3>
-        <p>Calls, texts, leads, appointments and conversations — all in one place on your phone, not scattered everywhere.</p>
-      </div>
-      <div class="card is-free">
-        <span class="flag">Built free</span>
-        <h3>Website Included</h3>
-        <p>We build you a professional website designed to turn visitors into leads — included in the flat rate. No build fee, no design bill.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="price" id="pricing">
-  <div class="wrap">
-    <p class="eyebrow">Pricing — no games</p>
-    <h2>One flat rate. Everything included.</h2>
-    <p class="price-big">$297<small>/month</small></p>
-    <p class="price-terms">No contract · <b>Website built free</b> · No setup fee</p>
-    <ul class="gets">
-      <li><span class="c">✓</span>Every system above — missed-call textback, lead follow-up, bookings, reminders, reviews, one inbox</li>
-      <li><span class="c">✓</span>A professional website built for you, included</li>
-      <li><span class="c">✓</span>Unlimited contacts and bookings</li>
-      <li><span class="c">✓</span>Month-to-month — cancel any month, no cancellation maze</li>
-    </ul>
-    <a class="btn" href="#form" data-goform>Get started &rarr;</a>
-    <p class="price-note">One saved job can cover the month. The rest is money the old way was leaking.</p>
-  </div>
-</section>
-
-<section class="trust">
-  <div class="wrap">
-    <h2>Straight answers, no fluff</h2>
-    <div class="trust-grid">
-      <div>
-        <h3>You deal with the owner</h3>
-        <p>Book a demo and you're on the call with Ronnie, the owner. No sales rep, no handoff. Straight answers from the person who built the thing.</p>
-      </div>
-      <div>
-        <h3>Built for the trades</h3>
-        <p>Plumbers, roofers, electricians, HVAC, junk removal, dumpsters, pressure washing, landscaping, detailing — businesses that work from a truck, not a desk.</p>
-      </div>
-      <div>
-        <h3>It earns its spot monthly</h3>
-        <p>$297 flat, month-to-month. It keeps proving itself or you leave — no contract, no hard feelings.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -352,6 +273,14 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     <p class="eyebrow" id="stepEyebrow">Step 1 of 5 — about 30 seconds</p>
     <h2 id="stepHead">Let's see if WorkTruck Systems fits your business.</h2>
     <p class="lead-sub" id="stepSub">First — who are we talking to?</p>
+
+    <div class="founder">
+      <img src="/ronnie.jpg" alt="Ronnie Barone, owner of WorkTruck Systems" class="founder-img" width="56" height="56" onerror="this.style.display='none'">
+      <div>
+        <p class="founder-name">Ronnie Barone, owner</p>
+        <p class="founder-line">I take every demo call myself. No sales rep, no handoff.</p>
+      </div>
+    </div>
 
     <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
@@ -444,6 +373,107 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     <p class="fine">By submitting, you agree to receive text messages from WorkTruck Systems about your request. Message and data rates may apply. Reply STOP to opt out. <a href="/terms.html">SMS terms</a> · <a href="/privacy.html">Privacy policy</a>. No spam, no pressure — a real person reads this.</p>
   </div>
 </section>
+
+<section class="faq">
+  <div class="wrap">
+    <h2>Three quick answers</h2>
+    <div class="trust-grid">
+      <div>
+        <h3>Do I need to be good with computers?</h3>
+        <p>If you can send a text, you can run this. Leads text you, the system texts them, and your job board updates itself. Nothing to install, no dashboard homework.</p>
+      </div>
+      <div>
+        <h3>Is the website really free?</h3>
+        <p>Yes. It's included in the flat rate and typically live in about 72 hours &mdash; your name, services, pricing and service area, with the quote form and phone number wired straight into the system.</p>
+      </div>
+      <div>
+        <h3>What if I cancel?</h3>
+        <p>You cancel, nobody pays a fee. You lose access to the systems and the included website at the end of your month. No cancellation maze, no hard feelings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <p class="eyebrow">The stuff that costs you jobs</p>
+    <h2>Sound familiar?</h2>
+    <ul class="pains">
+      <li><span class="x">✕</span>You miss a call on a job — and the customer just calls the next contractor.</li>
+      <li><span class="x">✕</span>A lead comes in from your website or Facebook and sits for hours before anyone replies.</li>
+      <li><span class="x">✕</span>You sent the estimate. Then nothing — because chasing it slipped your mind.</li>
+      <li><span class="x">✕</span>Booking one estimate takes five texts back and forth about times.</li>
+      <li><span class="x">✕</span>Happy customer, no Google review — you forgot to ask. Again.</li>
+      <li><span class="x">✕</span>Calls, texts, leads and appointments live in six different places and a napkin.</li>
+    </ul>
+    <p class="problem-close">None of that means you're bad at business. It means you're busy doing the actual work. That's the part we handle.</p>
+  </div>
+</section>
+
+<section class="sys" id="systems">
+  <div class="wrap">
+    <p class="eyebrow">What WorkTruck Systems does</p>
+    <h2>It handles the office. You handle the job.</h2>
+    <p class="sys-sub">One system on your phone. No desk, no software to learn — if you can send a text, you can run it.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Missed Call Recovery</h3>
+        <p>Miss a call while you're working? The customer automatically gets a text back — before they call the next contractor.</p>
+      </div>
+      <div class="card">
+        <h3>Instant Lead Follow-Up</h3>
+        <p>New website or Facebook lead? They get an immediate text, and you get notified on your phone.</p>
+      </div>
+      <div class="card">
+        <h3>Booking &amp; Reminders</h3>
+        <p>Customers schedule estimates on a real calendar and automatically get confirmations and reminders. Fewer no-shows, fewer dry runs.</p>
+      </div>
+      <div class="card">
+        <h3>Google Review Engine</h3>
+        <p>After every finished job, the happy customer gets asked for a Google review — automatically, at a polite hour.</p>
+      </div>
+    </div>
+    <p class="sys-more">Plus estimate follow-up, one organized inbox, and a professional website built for you &mdash; all in the flat rate.</p>
+  </div>
+</section>
+
+<section class="price" id="pricing">
+  <div class="wrap">
+    <p class="eyebrow">Pricing — no games</p>
+    <h2>One flat rate. Everything included.</h2>
+    <p class="price-big">$297<small>/month</small></p>
+    <p class="price-terms">No contract · <b>Website built free</b> · No setup fee</p>
+    <ul class="gets">
+      <li><span class="c">✓</span>Every system above — missed-call textback, lead follow-up, bookings, reminders, reviews, one inbox</li>
+      <li><span class="c">✓</span>A professional website built for you, included</li>
+      <li><span class="c">✓</span>Unlimited contacts and bookings</li>
+      <li><span class="c">✓</span>Month-to-month — cancel any month, no cancellation maze</li>
+    </ul>
+    <a class="btn" href="#form" data-goform>Get started &rarr;</a>
+    <p class="price-note">One saved job can cover the month. The rest is money the old way was leaking.</p>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <h2>Straight answers, no fluff</h2>
+    <div class="trust-grid">
+      <div>
+        <h3>You deal with the owner</h3>
+        <p>Book a demo and you're on the call with Ronnie, the owner. No sales rep, no handoff. Straight answers from the person who built the thing.</p>
+      </div>
+      <div>
+        <h3>Built for the trades</h3>
+        <p>Plumbers, roofers, electricians, HVAC, junk removal, dumpsters, pressure washing, landscaping, detailing — businesses that work from a truck, not a desk.</p>
+      </div>
+      <div>
+        <h3>It earns its spot monthly</h3>
+        <p>$297 flat, month-to-month. It keeps proving itself or you leave — no contract, no hard feelings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 </div><!-- /screen-lp -->
 
