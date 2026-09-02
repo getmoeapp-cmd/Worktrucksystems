@@ -125,12 +125,6 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .gets .c{color:var(--orange);font-weight:700;flex:none}
 .price-note{font-size:14.5px;color:#9B9B98;margin:16px auto 0;max-width:46ch}
 
-/* ── Founder trust block (inside the form) ── */
-.founder{display:flex;gap:14px;align-items:center;max-width:560px;margin:0 0 22px;padding:14px 16px;background:var(--warm);border:1px solid #DDD8CE;border-radius:6px}
-.founder-img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none}
-.founder-name{font-family:var(--plate);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 3px}
-.founder-line{margin:0;font-size:15px;color:#3A3E42;line-height:1.45}
-
 /* ── FAQ under the form ── */
 .faq{padding:6px 0 54px}
 .faq h2{font-size:clamp(22px,5.5vw,30px);margin-bottom:6px}
@@ -158,7 +152,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
    "Step 1 of 2" eyebrow isn't hidden behind it */
 #form{scroll-margin-top:84px}
 .lead h2{font-size:clamp(26px,6.4vw,40px)}
-.lead-sub{color:var(--muted);margin:0 0 28px}
+.lead-sub{color:var(--muted);margin:0 0 18px}
 .fields{display:grid;gap:15px;max-width:560px}
 .field label{display:block;font-family:var(--plate);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .field input,.field select{
@@ -183,7 +177,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .back{background:none;border:0;padding:6px 2px;cursor:pointer;color:var(--muted);
   font-family:var(--plate);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
 .back:hover{color:var(--char)}
-.bars{display:flex;gap:6px;margin:0 0 26px;max-width:560px}
+.bars{display:flex;gap:6px;margin:0 0 16px;max-width:560px}
 .bars i{flex:1;height:3px;border-radius:2px;background:var(--line);transition:background .3s}
 .bars i.on{background:var(--orange)}
 @media(prefers-reduced-motion:reduce){.step.is-on{animation:none}}
@@ -192,7 +186,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
   .fields{grid-template-columns:1fr 1fr}
   .field.full{grid-column:1/-1}
 }
-.qual{margin:30px 0 0;max-width:560px}
+.qual{margin:0;max-width:560px}
 .qual-hd{font-family:var(--plate);font-weight:700;font-size:17px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
 .qual-sub{font-size:14.5px;color:var(--muted);margin:0 0 14px}
 .chips{display:grid;gap:9px}
@@ -207,7 +201,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .chip.is-on{background:#FFF1E6;border-color:var(--orange);font-weight:600}
 .chip.is-on .tick{opacity:1}
 @media (min-width:640px){.chips{grid-template-columns:1fr 1fr}}
-.lead .btn{margin-top:26px;width:100%;max-width:560px;font-size:18px;padding:19px 30px}
+.lead .btn{margin-top:20px;width:100%;max-width:560px;font-size:18px;padding:19px 30px}
 .fine{font-size:13px;color:#8A8F94;margin:14px 0 0;max-width:560px;line-height:1.6}
 .fine a{color:var(--orange-text)}
 
@@ -266,19 +260,11 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 <section class="lead" id="form">
   <div class="wrap">
+    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     <p class="eyebrow" id="stepEyebrow">Step 1 of 5 — about 30 seconds</p>
     <h2 id="stepHead">Let's see if WorkTruck Systems fits your business.</h2>
     <p class="lead-sub" id="stepSub">First — who are we talking to?</p>
 
-    <div class="founder">
-      <img src="/ronnie.jpg" alt="Ronnie Barone, owner of WorkTruck Systems" class="founder-img" width="56" height="56" onerror="this.style.display='none'">
-      <div>
-        <p class="founder-name">Ronnie Barone, owner</p>
-        <p class="founder-line">I take every demo call myself. No sales rep, no handoff.</p>
-      </div>
-    </div>
-
-    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
     <div class="step is-on" data-step="1">
     <div class="fields">
