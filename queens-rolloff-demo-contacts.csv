@@ -1,0 +1,21 @@
+First Name,Last Name,Business Name,Phone,Email,Street Address,City,State,Postal Code,Country,Tags,Source
+Mike,Alvarez,,(718) 555-0101,mike.alvarez@example.com,84-12 101st Ave,Ozone Park,NY,11416,US,"customer,repeat-customer",Google
+Danny,Russo,Russo Home Improvement,(718) 555-0102,danny@russohi-example.com,102-30 Liberty Ave,Richmond Hill,NY,11419,US,"customer,repeat-customer,contractor",Referral
+Priya,Patel,,(347) 555-0103,priya.patel@example.com,117-08 Atlantic Ave,Richmond Hill,NY,11418,US,customer,Website
+Tom,Kowalski,,(718) 555-0104,tom.kowalski@example.com,61-40 Woodhaven Blvd,Rego Park,NY,11374,US,"customer,review-left",Google
+Angela,Moreno,,(917) 555-0105,angela.moreno@example.com,95-19 134th St,Richmond Hill,NY,11419,US,"customer,review-left",Facebook
+Chris,O'Brien,O'Brien Roofing,(718) 555-0106,chris@obrienroof-example.com,104-40 Rockaway Blvd,Ozone Park,NY,11417,US,"customer,repeat-customer,contractor",Referral
+Sandra,Lee,,(347) 555-0107,sandra.lee@example.com,150-22 Cross Bay Blvd,Howard Beach,NY,11414,US,estimate-sent,Website
+Marcus,Johnson,,(718) 555-0108,marcus.johnson@example.com,121-05 Hillside Ave,Richmond Hill,NY,11418,US,estimate-sent,Google
+Rosa,Fernandez,,(917) 555-0109,rosa.fernandez@example.com,87-30 Lefferts Blvd,Kew Gardens,NY,11415,US,new-lead,Website
+Kevin,Murphy,Murphy Demolition,(718) 555-0110,kevin@murphydemo-example.com,73-15 Grand Ave,Maspeth,NY,11378,US,"customer,repeat-customer,contractor",Referral
+Nina,Rahman,,(347) 555-0111,nina.rahman@example.com,110-12 Jamaica Ave,Richmond Hill,NY,11418,US,customer,Google
+Joe,Santoro,,(718) 555-0112,joe.santoro@example.com,157-14 84th St,Howard Beach,NY,11414,US,"customer,review-left",Facebook
+Wei,Chen,,(917) 555-0113,wei.chen@example.com,62-90 Fresh Pond Rd,Ridgewood,NY,11385,US,new-lead,Website
+Brian,Callahan,Callahan Construction,(718) 555-0114,brian@callahanconst-example.com,91-22 Sutphin Blvd,Jamaica,NY,11435,US,"customer,contractor",Referral
+Maria,Gutierrez,,(347) 555-0115,maria.gutierrez@example.com,103-05 96th St,Ozone Park,NY,11417,US,estimate-sent,Google
+Sean,Doyle,,(718) 555-0116,sean.doyle@example.com,135-30 Lefferts Blvd,South Ozone Park,NY,11420,US,customer,Website
+Aisha,Williams,,(917) 555-0117,aisha.williams@example.com,89-40 Van Wyck Expy,Richmond Hill,NY,11418,US,new-lead,Facebook
+Vinny,Caruso,Caruso Landscaping,(718) 555-0118,vinny@carusoland-example.com,80-10 Cypress Ave,Glendale,NY,11385,US,"customer,repeat-customer,contractor",Google
+Grace,Kim,,(347) 555-0119,grace.kim@example.com,144-16 Rockaway Blvd,South Ozone Park,NY,11436,US,"customer,review-left",Website
+Luis,Ortega,,(718) 555-0120,luis.ortega@example.com,95-05 Woodhaven Blvd,Woodhaven,NY,11421,US,new-lead,Google
