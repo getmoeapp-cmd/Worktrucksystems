@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Book a 20-minute demo — WorkTruck Systems</title>
-<meta name="description" content="Missed-call textback, instant lead follow-up, bookings, reminders and Google reviews for contractors. $297/mo, no contract, website built free.">
+<title>Pressure Washing Owners in Tampa — Book a 20-minute demo | WorkTruck Systems</title>
+<meta name="description" content="For Tampa pressure washing companies: free website, missed-call text back, instant lead follow-up, quote reminders and Google reviews. $297/mo, no contract.">
 <meta name="robots" content="noindex">
 
 <link rel="canonical" href="https://www.worktrucksystems.com/start">
-<meta property="og:title" content="Book a 20-minute demo — WorkTruck Systems">
-<meta property="og:description" content="The system behind your service business. $297/mo, no contract, website built free.">
+<meta property="og:title" content="Pressure Washing Owners in Tampa — WorkTruck Systems">
+<meta property="og:description" content="Stop losing house washes to missed calls. Free website + the system that follows up for you. $297/mo, no contract.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://worktrucksystems.com/icon.png">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -141,10 +141,13 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .trust-grid p{margin:0;font-size:15.5px;color:#3A3E42;line-height:1.5}
 @media (min-width:760px){.trust-grid{grid-template-columns:1fr 1fr 1fr}}
 
-/* ── /start context strip ── */
-.ctx{background:var(--warm);border-bottom:1px solid var(--line);padding:16px 0}
-.ctx-line{margin:0;font-size:16px;color:#3A3E42;line-height:1.5;max-width:60ch}
-.ctx-line b{color:var(--ink)}
+/* ── /start context strip: echoes the ad the lead just clicked ── */
+.ctx{background:var(--char);color:#fff;padding:26px 0 24px}
+.ctx .eyebrow{margin-bottom:8px}
+.ctx h1{font-size:clamp(28px,7.4vw,46px);color:#fff;margin:0 0 12px}
+.ctx h1 span{color:var(--orange)}
+.ctx-line{margin:0;font-size:16px;color:#D8D8D6;line-height:1.5;max-width:60ch}
+.ctx-line b{color:#fff}
 
 /* ── Form ── */
 .lead{padding:34px 0 64px}
@@ -254,15 +257,17 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 <section class="ctx">
   <div class="wrap">
-    <p class="ctx-line">Fill this out, then pick a time for a <b>20-minute demo with Ronnie</b>. You'll see the system running on a real account.</p>
+    <p class="eyebrow">Pressure washing owners in Tampa</p>
+    <h1>Stop losing house washes to <span>missed calls.</span></h1>
+    <p class="ctx-line">Free website + one system that texts back missed calls, follows up on quotes and gets you Google reviews. Fill this out, then grab a <b>20-minute demo with Ronnie</b>.</p>
   </div>
 </section>
 
 <section class="lead" id="form">
   <div class="wrap">
-    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <p class="eyebrow" id="stepEyebrow">Step 1 of 5 — about 30 seconds</p>
-    <h2 id="stepHead">Let's see if WorkTruck Systems fits your business.</h2>
+    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="eyebrow" id="stepEyebrow">Step 1 of 4 — about 30 seconds</p>
+    <h2 id="stepHead">Let's see if WorkTruck Systems fits your pressure washing business.</h2>
     <p class="lead-sub" id="stepSub">First — who are we talking to?</p>
 
 
@@ -290,7 +295,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     <div class="fields">
       <div class="field" id="w_phone">
         <label for="f_phone">Mobile phone</label>
-        <input id="f_phone" type="tel" placeholder="(347) 555-0142" autocomplete="tel">
+        <input id="f_phone" type="tel" placeholder="(813) 555-0142" autocomplete="tel">
         <p class="err">Please enter a 10-digit mobile number</p>
       </div>
       <div class="field" id="w_email">
@@ -303,42 +308,23 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     </div><!-- /step 2 -->
 
     <div class="step" data-step="3">
-    <div class="fields">
-      <div class="field full" id="w_trade">
-        <label for="f_trade">Trade / business type</label>
-        <select id="f_trade">
-          <option value="" selected disabled>Choose your trade&hellip;</option>
-          <option>Plumbing</option><option>HVAC</option><option>Electrical</option>
-          <option>Roofing</option><option>General Contractor</option><option>Remodeling</option>
-          <option>Handyman</option><option>Painting</option><option>Landscaping</option>
-          <option>Tree Service</option><option>Pressure Washing</option><option>Junk Removal</option>
-          <option>Roll-Off Dumpsters</option><option>Mobile Detailing</option><option>Moving</option>
-          <option>Pest Control</option><option>Other home service</option>
-        </select>
-        <p class="err">Please pick your trade</p>
-      </div>
-    </div>
-    <div class="nav"><button class="btn go" type="button" data-next="4">Continue &rarr;</button><button class="back" type="button" data-back="2">&larr; Back</button></div>
-    </div><!-- /step 3 -->
-
-    <div class="step" data-step="4">
     <div class="qual" id="w_help">
       <div class="chips" id="chips">
-        <button type="button" class="chip">Getting more leads<span class="tick">✓</span></button>
-        <button type="button" class="chip">Responding faster to leads<span class="tick">✓</span></button>
-        <button type="button" class="chip">Missing too many calls<span class="tick">✓</span></button>
-        <button type="button" class="chip">Booking more estimates<span class="tick">✓</span></button>
+        <button type="button" class="chip">Missing calls while I'm on a job<span class="tick">✓</span></button>
+        <button type="button" class="chip">Responding faster to quote requests<span class="tick">✓</span></button>
+        <button type="button" class="chip">Following up on quotes that went quiet<span class="tick">✓</span></button>
+        <button type="button" class="chip">Booking more washes<span class="tick">✓</span></button>
         <button type="button" class="chip">Getting more Google reviews<span class="tick">✓</span></button>
-        <button type="button" class="chip">Following up with customers<span class="tick">✓</span></button>
+        <button type="button" class="chip">Getting more leads<span class="tick">✓</span></button>
         <button type="button" class="chip">Keeping everything organized<span class="tick">✓</span></button>
         <button type="button" class="chip">I need help with several of these<span class="tick">✓</span></button>
       </div>
       <p class="err" id="chipErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
-    <div class="nav"><button class="btn go" type="button" data-next="5">Continue &rarr;</button><button class="back" type="button" data-back="3">&larr; Back</button></div>
-    </div><!-- /step 4 -->
+    <div class="nav"><button class="btn go" type="button" data-next="4">Continue &rarr;</button><button class="back" type="button" data-back="2">&larr; Back</button></div>
+    </div><!-- /step 3 -->
 
-    <div class="step" data-step="5">
+    <div class="step" data-step="4">
     <div class="qual" id="w_site">
       <div class="chips" id="siteChips">
         <button type="button" class="chip">Yes, and it's fine<span class="tick">✓</span></button>
@@ -349,8 +335,8 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       <p class="err" id="siteErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
     <button class="btn" id="submitLead" type="button">Show me available times &rarr;</button>
-    <div class="nav"><button class="back" type="button" data-back="4">&larr; Back</button></div>
-    </div><!-- /step 5 -->
+    <div class="nav"><button class="back" type="button" data-back="3">&larr; Back</button></div>
+    </div><!-- /step 4 -->
 
     <p class="fine">By submitting, you agree to receive text messages from WorkTruck Systems about your request. Message and data rates may apply. Reply STOP to opt out. <a href="/terms.html">SMS terms</a> · <a href="/privacy.html">Privacy policy</a>. No spam, no pressure — a real person reads this.</p>
   </div>
@@ -367,9 +353,9 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 <!-- ════════ SCREEN 2 — CALENDAR ════════ -->
 <div id="screen-cal" class="cal hidden">
   <div class="wrap">
-    <p class="eyebrow">Step 2 of 2 — pick a time</p>
+    <p class="eyebrow">Last step — pick a time</p>
     <h1>Let's take 20 minutes and look at your business.</h1>
-    <p class="cal-sub">We'll look at how you're currently handling calls, leads, estimates and follow-up — then I'll show you how WorkTruck Systems could handle it for you. No pressure, no sales deck.</p>
+    <p class="cal-sub">We'll look at how you're handling calls, quote requests and follow-up right now, then I'll show you how WorkTruck Systems would handle it for your pressure washing business. No pressure, no sales deck.</p>
     <div class="cal-frame" id="calFrame"><!-- iframe injected on arrival --></div>
     <p class="cal-alt">Can't find a time that works? Email Ronnie directly: <a href="mailto:support@worktrucksystems.com">support@worktrucksystems.com</a></p>
   </div>
@@ -378,7 +364,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 <footer class="anchor">
   <div class="wrap">
     <b>$297/mo</b>
-    <span>No contract. Website built free. Built for businesses that work from a truck.</span>
+    <span>No contract. Website built free. Built for pressure washing companies.</span>
     <nav><a href="/terms.html">SMS terms</a><a href="/privacy.html">Privacy</a></nav>
   </div>
 </footer>
@@ -390,9 +376,14 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
    ══════════════════════════════════════════════════ */
 var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origin, no CORS. */
 var CALENDAR_URL = 'https://link.worktrucksystems.com/widget/booking/ZWdnOs0CCeKWWO1E5bqp';
+/* This page is the Tampa pressure washing landing page. The trade is no
+   longer asked; it is sent to GHL as this value (same spelling the old
+   dropdown used, so the "trade" custom field and any filters still match). */
+var TRADE        = 'Pressure Washing';
+var SOURCE       = 'Facebook Ads — /start.html (Pressure Washing Tampa)';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', help:'', website:'', submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:TRADE, help:'', website:'', submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -414,7 +405,7 @@ function markStarted(){
   formStarted=true;
   track('LeadFormStarted', {}, true);
 }
-['f_name','f_last','f_biz','f_phone','f_email','f_trade'].forEach(function(id){
+['f_name','f_last','f_biz','f_phone','f_email'].forEach(function(id){
   $(id).addEventListener('focus', markStarted);
 });
 
@@ -428,7 +419,7 @@ Array.prototype.forEach.call(document.querySelectorAll('#chips .chip'), function
     state.help = btn.textContent.replace('✓','').trim();
     $('chipErr').style.display='none';
     /* Answering advances — the tick shows first so the tap registers */
-    setTimeout(function(){ if(step===4) goStep(5); }, 260);
+    setTimeout(function(){ if(step===3) goStep(4); }, 260);
   });
 });
 
@@ -448,14 +439,13 @@ Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), func
    Only the active step is in the layout (.step{display:none}), so a
    lead cannot scroll ahead or read what is coming. Each step is
    validated before it will let go. */
-var TOTAL_STEPS = 5, step = 1;
+var TOTAL_STEPS = 4, step = 1;
 
 var STEP_COPY = {
-  1:{eyebrow:'Step 1 of 5 — about 30 seconds', head:"Let's see if WorkTruck Systems fits your business.", sub:'First — who are we talking to?'},
-  2:{eyebrow:'Step 2 of 5', head:'Where should we reach you?', sub:"We'll text the confirmation — no spam, no list."},
-  3:{eyebrow:'Step 3 of 5', head:'What kind of work do you do?', sub:'So everything we show you is built for your trade.'},
-  4:{eyebrow:'Step 4 of 5', head:'What would you most like help with right now?', sub:'Tap one — no typing.'},
-  5:{eyebrow:'Step 5 of 5 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we build you one free.'}
+  1:{eyebrow:'Step 1 of 4 — about 30 seconds', head:"Let's see if WorkTruck Systems fits your pressure washing business.", sub:'First — who are we talking to?'},
+  2:{eyebrow:'Step 2 of 4', head:'Where should we reach you?', sub:"We'll text the confirmation — no spam, no list."},
+  3:{eyebrow:'Step 3 of 4', head:'What would you most like help with right now?', sub:'Tap one — no typing.'},
+  4:{eyebrow:'Step 4 of 4 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we build you one free.'}
 };
 
 function readFields(){
@@ -464,7 +454,7 @@ function readFields(){
   state.biz   = $('f_biz').value.trim();
   state.phone = $('f_phone').value.trim();
   state.email = $('f_email').value.trim();
-  state.trade = $('f_trade').value;
+  state.trade = TRADE;
 }
 function mark(wrapId, isBad){
   $(wrapId).classList.toggle('has-error', isBad);
@@ -485,11 +475,9 @@ function validateStep(n){
     var d = mark('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
     ok = c && d;
   } else if(n===3){
-    ok = mark('w_trade', !state.trade);
-  } else if(n===4){
     ok = !!state.help;
     $('chipErr').style.display = ok ? 'none' : 'block';
-  } else if(n===5){
+  } else if(n===4){
     /* Set REQUIRE_WEBSITE to false to make this question optional */
     var REQUIRE_WEBSITE = true;
     ok = !REQUIRE_WEBSITE || !!state.website;
@@ -584,7 +572,7 @@ $('submitLead').addEventListener('click', function(){
   p.funnel_stage   = 'complete';
   p.demo_status    = 'Not Sent';
   p.funnel         = 'paid-lp';
-  p.source         = 'Facebook Ads — /start.html';
+  p.source         = SOURCE;
 
   track('Lead', {content_name: state.help});
 
@@ -605,7 +593,7 @@ window.addEventListener('pagehide', function(){
     p.businessName=state.biz; p.trade=state.trade; p.biggest_problem=state.help;
     p.website_status=state.website;
     p.funnel_stage='complete'; p.funnel='paid-lp';
-    p.source='Facebook Ads — /start.html';
+    p.source=SOURCE;
     navigator.sendBeacon(WEBHOOK_URL, new Blob([JSON.stringify(p)],{type:'application/json'}));
   }catch(e){}
 });
