@@ -77,6 +77,9 @@ export default async function handler(req, res) {
   /* Standard GHL field — the paid LP collects the business name */
   if (body.businessName) payload.companyName = String(body.businessName);
 
+  /* Standard GHL "Website" field — their current site, when they said Yes */
+  if (body.website_url) payload.website = String(body.website_url).slice(0, 300);
+
   /* UTMs land in attribution rather than custom fields */
   if (body.utm_source || body.utm_campaign || body.fbclid) {
     payload.attributionSource = {
@@ -88,8 +91,8 @@ export default async function handler(req, res) {
     };
   }
 
-  try {
-    const ghl = await fetch(GHL_API, {
+  const send = async (p) => {
+    const r = await fetch(GHL_API, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${TOKEN}`,
@@ -97,29 +100,45 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(p)
     });
-
-    const text = await ghl.text();
+    const text = await r.text();
     let parsed;
     try { parsed = JSON.parse(text); } catch { parsed = text; }
+    return { ok: r.ok, status: r.status, parsed };
+  };
+
+  try {
+    let ghl = await send(payload);
+    let fallback = false;
+
+    /* Never lose a lead over one field GHL doesn't like (a website it won't
+       accept, a custom-field value, attribution): retry once with just the
+       contact, business name, source and tags. */
+    if (!ghl.ok && (ghl.status === 400 || ghl.status === 422)) {
+      console.error('GHL rejected full payload — retrying lean', ghl.status, ghl.parsed);
+      const { customFields, website, attributionSource, ...lean } = payload;
+      ghl = await send(lean);
+      fallback = true;
+    }
 
     if (!ghl.ok) {
       /* Surfaced deliberately — if GHL rejects the shape, we need to see why */
-      console.error('GHL rejected', ghl.status, parsed);
+      console.error('GHL rejected', ghl.status, ghl.parsed);
       return res.status(200).json({
         ok: false,
         ghlStatus: ghl.status,
-        ghlResponse: parsed,
+        ghlResponse: ghl.parsed,
         sent: payload
       });
     }
 
-    console.log('GHL ok', parsed?.contact?.id || '');
+    console.log('GHL ok', ghl.parsed?.contact?.id || '', fallback ? '(lean fallback)' : '');
     return res.status(200).json({
       ok: true,
-      contactId: parsed?.contact?.id || null,
-      ghlResponse: parsed
+      fallback,
+      contactId: ghl.parsed?.contact?.id || null,
+      ghlResponse: ghl.parsed
     });
 
   } catch (err) {

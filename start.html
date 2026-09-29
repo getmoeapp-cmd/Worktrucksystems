@@ -212,6 +212,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .chip.is-on{background:#FFF1E6;border-color:var(--orange);font-weight:600}
 .chip.is-on .tick{opacity:1}
 @media (min-width:640px){.chips{grid-template-columns:1fr 1fr}}
+.chips.yn{grid-template-columns:1fr 1fr}
 .lead .btn{margin-top:20px;width:100%;max-width:560px;font-size:18px;padding:19px 30px}
 .fine{font-size:13px;color:#8A8F94;margin:14px 0 0;max-width:560px;line-height:1.6}
 .fine a{color:var(--orange-text)}
@@ -320,13 +321,16 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
     <div class="step" data-step="2">
     <div class="qual" id="w_site">
-      <div class="chips" id="siteChips">
-        <button type="button" class="chip">Yes, and it's fine<span class="tick">✓</span></button>
-        <button type="button" class="chip">Yes, but it needs work<span class="tick">✓</span></button>
-        <button type="button" class="chip">No, I don't have one<span class="tick">✓</span></button>
-        <button type="button" class="chip">Not sure<span class="tick">✓</span></button>
+      <div class="chips yn" id="siteChips">
+        <button type="button" class="chip" data-val="Yes">Yes<span class="tick">✓</span></button>
+        <button type="button" class="chip" data-val="No">No<span class="tick">✓</span></button>
       </div>
-      <p class="err" id="siteErr" style="margin-top:8px">Please tap the one that fits best</p>
+      <p class="err" id="siteErr" style="margin-top:8px">Please tap Yes or No</p>
+      <div class="field hidden" id="w_url" style="margin-top:14px">
+        <label for="f_url">Your website</label>
+        <input id="f_url" type="url" inputmode="url" placeholder="alvarezwash.com" autocomplete="url" autocapitalize="off" spellcheck="false">
+        <p class="err">Please enter your website address</p>
+      </div>
     </div>
     <button class="btn" id="submitLead" type="button">Show me available times &rarr;</button>
     <div class="nav"><button class="back" type="button" data-back="1">&larr; Back</button></div>
@@ -377,7 +381,7 @@ var TRADE        = 'Pressure Washing';
 var SOURCE       = 'Facebook Ads — /start.html (Pressure Washing Tampa)';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', last:'', biz:'', phone:'', email:'', trade:TRADE, website:'', started:false, submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:TRADE, website:'', url:'', started:false, submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -403,6 +407,8 @@ function markStarted(){
   $(id).addEventListener('focus', markStarted);
 });
 
+$('f_url').addEventListener('input', function(){ $('w_url').classList.remove('has-error'); });
+
 /* ── Website status chips — single select, same pattern as above ── */
 Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), function(btn){
   btn.addEventListener('click', function(){
@@ -410,8 +416,12 @@ Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), func
     Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), function(b){
       b.classList.toggle('is-on', b===btn);
     });
-    state.website = btn.textContent.replace('✓','').trim();
+    state.website = btn.getAttribute('data-val');
     $('siteErr').style.display='none';
+    var yes = state.website==='Yes';
+    $('w_url').classList.toggle('hidden', !yes);
+    if(!yes) $('w_url').classList.remove('has-error');
+    else setTimeout(function(){ $('f_url').focus(); }, 60);
   });
 });
 
@@ -423,7 +433,7 @@ var TOTAL_STEPS = 2, step = 1;
 
 var STEP_COPY = {
   1:{eyebrow:'Step 1 of 2 — about 30 seconds', head:'Who are we talking to?', sub:''},
-  2:{eyebrow:'Step 2 of 2 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we rebuild it free.'}
+  2:{eyebrow:'Step 2 of 2 — last one', head:'Do you have a website already?', sub:'Either way, we rebuild it free.'}
 };
 
 function readFields(){
@@ -432,8 +442,12 @@ function readFields(){
   state.biz   = $('f_biz').value.trim();
   state.phone = $('f_phone').value.trim();
   state.email = $('f_email').value.trim();
+  state.url   = $('f_url').value.trim();
   state.trade = TRADE;
 }
+/* "alvarezplumbing.com", "www.x.com", "https://x.com/page", "facebook.com/x" all pass */
+function looksLikeUrl(v){ return /^(https?:\/\/)?[^\s\/.]+(\.[^\s\/.]+)+(\/\S*)?$/i.test(v); }
+function normUrl(v){ v=(v||'').trim(); return !v ? '' : (/^https?:\/\//i.test(v) ? v : 'https://'+v); }
 function mark(wrapId, isBad){
   $(wrapId).classList.toggle('has-error', isBad);
   return !isBad;
@@ -451,10 +465,10 @@ function validateStep(n){
     var d = mark('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
     ok = a && b && c && d;
   } else if(n===2){
-    /* Set REQUIRE_WEBSITE to false to make this question optional */
-    var REQUIRE_WEBSITE = true;
-    ok = !REQUIRE_WEBSITE || !!state.website;
-    $('siteErr').style.display = ok ? 'none' : 'block';
+    var w = !!state.website;
+    $('siteErr').style.display = w ? 'none' : 'block';
+    var u = state.website!=='Yes' || mark('w_url', !looksLikeUrl(state.url));
+    ok = w && u;
   }
   if(!ok){
     var firstErr = document.querySelector('.step.is-on .has-error input, .step.is-on .has-error select');
@@ -560,6 +574,7 @@ $('submitLead').addEventListener('click', function(){
 
   var p=basePayload();
   p.website_status = state.website;
+  if(state.website==='Yes') p.website_url = normUrl(state.url);
   p.funnel_stage   = 'complete';
   p.demo_status    = 'Not Sent';
 
@@ -579,6 +594,7 @@ window.addEventListener('pagehide', function(){
   try{
     var p=basePayload();
     p.website_status=state.website;
+    if(state.website==='Yes') p.website_url=normUrl(state.url);
     p.funnel_stage='complete';
     navigator.sendBeacon(WEBHOOK_URL, new Blob([JSON.stringify(p)],{type:'application/json'}));
   }catch(e){}
