@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pressure Washing Owners in Tampa — Book a 20-minute demo | WorkTruck Systems</title>
-<meta name="description" content="For Tampa pressure washing companies: free website, missed-call text back, instant lead follow-up, quote reminders and Google reviews. $297/mo, no contract.">
+<title>Contractors — Book a 15-minute demo | WorkTruck Systems</title>
+<meta name="description" content="For local service contractors: free website, missed-call text back, instant lead follow-up, quote reminders and Google reviews. $297/mo, no contract.">
 <meta name="robots" content="noindex">
 
 <link rel="canonical" href="https://www.worktrucksystems.com/start">
-<meta property="og:title" content="Pressure Washing Owners in Tampa — WorkTruck Systems">
+<meta property="og:title" content="Contractors — Book a 15-minute demo | WorkTruck Systems">
 <meta property="og:description" content="Turn more of the leads you're already getting into paying jobs. Missed-call text back, instant follow-up, estimate follow-up, Google reviews + a free website. $297/mo, no contract.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://worktrucksystems.com/icon.png">
@@ -265,7 +265,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 <section class="ctx">
   <div class="wrap">
-    <p class="eyebrow">Pressure washing owners in Tampa</p>
+    <p class="eyebrow">For local service contractors</p>
     <h1>Turn more of the leads you're already getting into <span>paying jobs.</span></h1>
     <ul class="does">
       <li><span><b>Missed call?</b> We text them back.</span></li>
@@ -275,7 +275,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     </ul>
     <p class="free-site">And we'll rebuild your website <b>FREE.</b></p>
     <p class="terms"><b>$297/month</b> · No contract · No setup fee</p>
-    <p class="demo-line">See the entire system running in 20 minutes.</p>
+    <p class="demo-line">See the entire system running in 15 minutes.</p>
     <p class="owner-line">👤 You're meeting with Ronnie, the owner — not a salesperson.</p>
   </div>
 </section>
@@ -301,12 +301,12 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       </div>
       <div class="field full" id="w_biz">
         <label for="f_biz">Business name</label>
-        <input id="f_biz" type="text" placeholder="Alvarez Pressure Washing" autocomplete="organization">
+        <input id="f_biz" type="text" placeholder="Alvarez Home Services" autocomplete="organization">
         <p class="err">Please enter your business name</p>
       </div>
       <div class="field full" id="w_phone">
         <label for="f_phone">Mobile phone</label>
-        <input id="f_phone" type="tel" placeholder="(813) 555-0142" autocomplete="tel">
+        <input id="f_phone" type="tel" placeholder="(555) 555-0142" autocomplete="tel">
         <p class="err">Please enter a 10-digit mobile number</p>
       </div>
       <div class="field full" id="w_email">
@@ -348,8 +348,8 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 <div id="screen-cal" class="cal hidden">
   <div class="wrap">
     <p class="eyebrow">Last step — pick a time</p>
-    <h1>Let's take 20 minutes and look at your business.</h1>
-    <p class="cal-sub">We'll look at how you're handling calls, quote requests and follow-up right now, then I'll show you how WorkTruck Systems would handle it for your pressure washing business. No pressure, no sales deck.</p>
+    <h1>Let's take 15 minutes and look at your business.</h1>
+    <p class="cal-sub">We'll look at how you're handling calls, quote requests and follow-up right now, then I'll show you how WorkTruck Systems would handle it for your business. No pressure, no sales deck.</p>
     <div class="cal-frame" id="calFrame"><!-- iframe injected on arrival --></div>
     <p class="cal-alt">Can't find a time that works? Email Ronnie directly: <a href="mailto:support@worktrucksystems.com">support@worktrucksystems.com</a></p>
   </div>
@@ -358,7 +358,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 <footer class="anchor">
   <div class="wrap">
     <b>$297/mo</b>
-    <span>No contract. Website built free. Built for pressure washing companies.</span>
+    <span>No contract. Website built free. Built for local contractors.</span>
     <nav><a href="/terms.html">SMS terms</a><a href="/privacy.html">Privacy</a></nav>
   </div>
 </footer>
@@ -370,11 +370,10 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
    ══════════════════════════════════════════════════ */
 var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origin, no CORS. */
 var CALENDAR_URL = 'https://link.worktrucksystems.com/widget/booking/ZWdnOs0CCeKWWO1E5bqp';
-/* This page is the Tampa pressure washing landing page. The trade is no
-   longer asked; it is sent to GHL as this value (same spelling the old
-   dropdown used, so the "trade" custom field and any filters still match). */
-var TRADE        = 'Pressure Washing';
-var SOURCE       = 'Facebook Ads — /start.html (Pressure Washing Tampa)';
+/* This page is a generic contractor landing page (any trade). The trade is not
+   asked; it is sent to GHL as this generic value. */
+var TRADE        = 'Contractor';
+var SOURCE       = 'Facebook Ads — /start.html';
 /* ══════════════════════════════════════════════════ */
 
 var state = { name:'', last:'', biz:'', phone:'', email:'', trade:TRADE, website:'', started:false, submitted:false };
