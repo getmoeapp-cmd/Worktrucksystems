@@ -223,6 +223,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .cal{padding:46px 0 64px}
 .cal h1{font-size:clamp(28px,7vw,48px)}
 .cal-sub{color:var(--muted);max-width:56ch;margin:0 0 26px;font-size:17px}
+.cal-hint{margin:0 0 12px;font-size:16px;font-weight:600;color:var(--ink)}
 .cal-frame{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--warm)}
 .cal-frame iframe{display:block;width:100%;min-height:720px;border:0}
 .cal-alt{margin:20px 0 0;font-size:15.5px;color:var(--muted)}
@@ -393,6 +394,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     <p class="eyebrow">Last step — pick a time</p>
     <h1>Let's take 15 minutes and look at your business.</h1>
     <p class="cal-sub">We'll look at how you're handling calls, quote requests and follow-up right now, then I'll show you how WorkTruck Systems would handle it for your business. No pressure, no sales deck.</p>
+    <p class="cal-hint">👉 Tap a date to see open times, then tap <b>Select</b>.</p>
     <div class="cal-frame" id="calFrame"><!-- iframe injected on arrival --></div>
     <p class="cal-alt">Can't find a time that works? Email Ronnie directly: <a href="mailto:support@worktrucksystems.com">support@worktrucksystems.com</a></p>
   </div>
@@ -618,6 +620,9 @@ function basePayload(){
   p.firstName=state.name; p.lastName=state.last;
   p.name=(state.name+' '+state.last).trim(); p.phone=state.phone; p.email=state.email;
   p.businessName=state.biz; p.trade=state.trade; p.jobs_weekly=(state.trade===NOT_A_FIT ? '' : state.jobs);
+  /* The lead-alert SMS reads {{contact.biggest_problem}}; the form no longer asks
+     it, so send a short qualifier summary instead of a blank. */
+  p.biggest_problem=[state.trade, state.jobs ? state.jobs+' jobs/wk' : '', state.website ? 'Website: '+state.website : ''].filter(Boolean).join(' · ');
   p.funnel='paid-lp'; p.source=SOURCE;
   return p;
 }
