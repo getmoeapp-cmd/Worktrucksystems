@@ -15,7 +15,6 @@ const API_VERSION = '2021-07-28';
 /* Payload key → GHL custom field key */
 const CUSTOM_FIELDS = [
   'trade',
-  'jobs_weekly',
   'biggest_problem',
   'lead_system',
   'website_status',
@@ -59,18 +58,10 @@ export default async function handler(req, res) {
 
   /* The tag IS the trigger. A distinct tag per stage means each post fires
      its own tag-added event in GHL — re-sending the same tag does nothing. */
-  var tags;
-  if (body.funnel_stage === 'not_a_fit') {
-    /* Non-contractor from /start: never start-funnel (that tag sends the
-       new-lead SMS) and never funnel-done (that creates the opportunity). */
-    tags = ['not-a-fit'];
-  } else {
-    tags = ['start-funnel'];
-    if (body.funnel_stage === 'complete') tags.push('funnel-done');
-    if (body.systems_viewed) tags.push('systems-browsed');
-    if (body.funnel === 'paid-lp') tags.push('paid-ad-lead');   /* Facebook/IG paid-traffic LP */
-    if (body.jobs_weekly === '0–2' || body.jobs_weekly === '0-2') tags.push('low-volume');
-  }
+  var tags = ['start-funnel'];
+  if (body.funnel_stage === 'complete') tags.push('funnel-done');
+  if (body.systems_viewed) tags.push('systems-browsed');
+  if (body.funnel === 'paid-lp') tags.push('paid-ad-lead');   /* Facebook/IG paid-traffic LP */
 
   const payload = {
     locationId: LOCATION,
