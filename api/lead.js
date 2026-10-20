@@ -60,7 +60,9 @@ export default async function handler(req, res) {
   /* The tag IS the trigger. A distinct tag per stage means each post fires
      its own tag-added event in GHL — re-sending the same tag does nothing. */
   var tags;
-  if (body.funnel_stage === 'not_a_fit') {
+  /* Belt and braces: a 'Not a contractor' trade is never a funnel lead, even if a
+     stray 'complete' post (e.g. the pagehide beacon) arrives for it. */
+  if (body.funnel_stage === 'not_a_fit' || body.trade === 'Not a contractor') {
     /* Non-contractor from /start: never start-funnel (that tag sends the
        new-lead SMS) and never funnel-done (that creates the opportunity). */
     tags = ['not-a-fit'];
