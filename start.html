@@ -421,7 +421,7 @@ var LOW_VOLUME   = '0–2';
 var SOURCE       = 'Facebook Ads — /start.html';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', jobs:'', website:'', started:false, submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', jobs:'', website:'', notFit:false, started:false, submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -473,7 +473,16 @@ function wireChips(boxId, errId, key, after){
     });
   });
 }
-wireChips('tradeChips','tradeErr','trade');
+wireChips('tradeChips','tradeErr','trade', function(){
+  /* Not a contractor: the jobs question doesn't apply, hide it and blank it */
+  var nf = state.trade===NOT_A_FIT;
+  $('w_jobs').classList.toggle('hidden', nf);
+  if(nf){
+    state.jobs='';
+    Array.prototype.forEach.call(document.querySelectorAll('#jobsChips .chip'), function(b){ b.classList.remove('is-on'); });
+    $('lowVol').classList.remove('show'); $('jobsErr').style.display='none';
+  }
+});
 wireChips('jobsChips','jobsErr','jobs', function(){
   $('lowVol').classList.toggle('show', state.jobs===LOW_VOLUME);
 });
@@ -514,7 +523,7 @@ function validateStep(n){
     var d = mark('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
     ok = a && b && c && d;
   } else if(n===2){
-    var t = !!state.trade, j = !!state.jobs;
+    var t = !!state.trade, j = !!state.jobs || state.trade===NOT_A_FIT;
     $('tradeErr').style.display = t ? 'none' : 'block';
     $('jobsErr').style.display  = j ? 'none' : 'block';
     ok = t && j;
@@ -608,7 +617,7 @@ function basePayload(){
   var p=utms();
   p.firstName=state.name; p.lastName=state.last;
   p.name=(state.name+' '+state.last).trim(); p.phone=state.phone; p.email=state.email;
-  p.businessName=state.biz; p.trade=state.trade; p.jobs_weekly=state.jobs;
+  p.businessName=state.biz; p.trade=state.trade; p.jobs_weekly=(state.trade===NOT_A_FIT ? '' : state.jobs);
   p.funnel='paid-lp'; p.source=SOURCE;
   return p;
 }
@@ -626,7 +635,8 @@ function saveStarted(){
    and a polite message instead of the calendar. */
 function notAFit(){
   if(state.submitted) return;
-  state.submitted=true;   /* blocks saveStarted, submit and the pagehide beacon */
+  state.submitted=true;   /* blocks saveStarted and submit */
+  state.notFit=true;      /* blocks the pagehide 'complete' beacon (it keys on submitted) */
   var p=basePayload();
   p.funnel_stage='not_a_fit';
   post(p);
@@ -661,7 +671,7 @@ $('submitLead').addEventListener('click', function(){
 
 /* Safety net — if they bail between tapping submit and the post finishing */
 window.addEventListener('pagehide', function(){
-  if(!state.submitted || !state.email) return;
+  if(!state.submitted || !state.email || state.notFit || state.trade===NOT_A_FIT) return;
   try{
     var p=basePayload();
     p.website_status=state.website;
