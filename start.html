@@ -213,9 +213,6 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 .chip.is-on .tick{opacity:1}
 @media (min-width:640px){.chips{grid-template-columns:1fr 1fr}}
 .lead .btn{margin-top:20px;width:100%;max-width:560px;font-size:18px;padding:19px 30px}
-.qual + .qual{margin-top:26px}
-.lowvol{display:none;margin:12px 0 0;max-width:560px;font-size:14.5px;color:var(--ink);background:#FFF1E6;border-left:3px solid var(--orange);padding:10px 12px;border-radius:4px}
-.lowvol.show{display:block}
 .fine{font-size:13px;color:#8A8F94;margin:14px 0 0;max-width:560px;line-height:1.6}
 .fine a{color:var(--orange-text)}
 
@@ -285,8 +282,8 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 <section class="lead" id="form">
   <div class="wrap">
-    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i></div>
-    <p class="eyebrow" id="stepEyebrow">Step 1 of 3 — about 30 seconds</p>
+    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i></div>
+    <p class="eyebrow" id="stepEyebrow">Step 1 of 2 — about 30 seconds</p>
     <h2 id="stepHead">Who are we talking to?</h2>
     <p class="lead-sub" id="stepSub"></p>
 
@@ -322,37 +319,6 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
     </div><!-- /step 1 -->
 
     <div class="step" data-step="2">
-    <div class="qual" id="w_trade">
-      <p class="qual-hd">What's your trade?</p>
-      <div class="chips" id="tradeChips">
-        <button type="button" class="chip">Roofing<span class="tick">✓</span></button>
-        <button type="button" class="chip">HVAC<span class="tick">✓</span></button>
-        <button type="button" class="chip">Plumbing<span class="tick">✓</span></button>
-        <button type="button" class="chip">Electrical<span class="tick">✓</span></button>
-        <button type="button" class="chip">Landscaping<span class="tick">✓</span></button>
-        <button type="button" class="chip">Cleaning<span class="tick">✓</span></button>
-        <button type="button" class="chip">General contractor/Remodeling<span class="tick">✓</span></button>
-        <button type="button" class="chip">Other home service<span class="tick">✓</span></button>
-        <button type="button" class="chip">Not a contractor<span class="tick">✓</span></button>
-      </div>
-      <p class="err" id="tradeErr" style="margin-top:8px">Please tap your trade</p>
-    </div>
-    <div class="qual" id="w_jobs">
-      <p class="qual-hd">About how many jobs do you do per week?</p>
-      <div class="chips" id="jobsChips">
-        <button type="button" class="chip">0–2<span class="tick">✓</span></button>
-        <button type="button" class="chip">3–5<span class="tick">✓</span></button>
-        <button type="button" class="chip">6–15<span class="tick">✓</span></button>
-        <button type="button" class="chip">16+<span class="tick">✓</span></button>
-      </div>
-      <p class="err" id="jobsErr" style="margin-top:8px">Please tap the one that fits best</p>
-      <p class="lowvol" id="lowVol">This works best if you're already getting calls.</p>
-    </div>
-    <div class="nav"><button class="btn go" type="button" data-next="3">Continue &rarr;</button>
-    <button class="back" type="button" data-back="1">&larr; Back</button></div>
-    </div><!-- /step 2 -->
-
-    <div class="step" data-step="3">
     <div class="qual" id="w_site">
       <div class="chips" id="siteChips">
         <button type="button" class="chip">Yes, and it's fine<span class="tick">✓</span></button>
@@ -363,8 +329,8 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       <p class="err" id="siteErr" style="margin-top:8px">Please tap the one that fits best</p>
     </div>
     <button class="btn" id="submitLead" type="button">Show me available times &rarr;</button>
-    <div class="nav"><button class="back" type="button" data-back="2">&larr; Back</button></div>
-    </div><!-- /step 3 -->
+    <div class="nav"><button class="back" type="button" data-back="1">&larr; Back</button></div>
+    </div><!-- /step 2 -->
 
     <p class="fine">By submitting, you agree to receive text messages from WorkTruck Systems about your request. Message and data rates may apply. Reply STOP to opt out. <a href="/terms.html">SMS terms</a> · <a href="/privacy.html">Privacy policy</a>. No spam, no pressure — a real person reads this.</p>
   </div>
@@ -377,15 +343,6 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
 
 
 </div><!-- /screen-lp -->
-
-<!-- ════════ SCREEN — NOT A FIT (no calendar) ════════ -->
-<div id="screen-nofit" class="cal hidden">
-  <div class="wrap">
-    <p class="eyebrow">Thanks for checking us out</p>
-    <h1>We're probably not the right fit — yet.</h1>
-    <p class="cal-sub">WorkTruck Systems is built for local home-service contractors, so we don't want to take your time with a demo that won't help. Thanks for stopping by, and best of luck with your business.</p>
-  </div>
-</div>
 
 <!-- ════════ SCREEN 2 — CALENDAR ════════ -->
 <div id="screen-cal" class="cal hidden">
@@ -413,15 +370,13 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
    ══════════════════════════════════════════════════ */
 var WEBHOOK_URL  = '/api/lead';  /* Vercel serverless → GHL upsert. Same origin, no CORS. */
 var CALENDAR_URL = 'https://link.worktrucksystems.com/widget/booking/ZWdnOs0CCeKWWO1E5bqp';
-/* Trade is asked in step 2 and sent as state.trade. TRADE remains only as
-   the unchanged Lead content_name. */
+/* This page is a generic contractor landing page (any trade). The trade is not
+   asked; it is sent to GHL as this generic value. */
 var TRADE        = 'Contractor';
-var NOT_A_FIT    = 'Not a contractor';
-var LOW_VOLUME   = '0–2';
 var SOURCE       = 'Facebook Ads — /start.html';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', jobs:'', website:'', started:false, submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:TRADE, website:'', started:false, submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -459,35 +414,15 @@ Array.prototype.forEach.call(document.querySelectorAll('#siteChips .chip'), func
   });
 });
 
-/* ── Step 2: trade + jobs/week chips ── */
-function wireChips(boxId, errId, key, after){
-  Array.prototype.forEach.call(document.querySelectorAll('#'+boxId+' .chip'), function(btn){
-    btn.addEventListener('click', function(){
-      markStarted();
-      Array.prototype.forEach.call(document.querySelectorAll('#'+boxId+' .chip'), function(b){
-        b.classList.toggle('is-on', b===btn);
-      });
-      state[key] = btn.textContent.replace('✓','').trim();
-      $(errId).style.display='none';
-      if(after) after();
-    });
-  });
-}
-wireChips('tradeChips','tradeErr','trade');
-wireChips('jobsChips','jobsErr','jobs', function(){
-  $('lowVol').classList.toggle('show', state.jobs===LOW_VOLUME);
-});
-
 /* ── Gated steps ──────────────────────────────────────────────
    Only the active step is in the layout (.step{display:none}), so a
    lead cannot scroll ahead or read what is coming. Each step is
    validated before it will let go. */
-var TOTAL_STEPS = 3, step = 1;
+var TOTAL_STEPS = 2, step = 1;
 
 var STEP_COPY = {
-  1:{eyebrow:'Step 1 of 3 — about 30 seconds', head:'Who are we talking to?', sub:''},
-  2:{eyebrow:'Step 2 of 3 — two quick taps', head:'Tell us about your business', sub:''},
-  3:{eyebrow:'Step 3 of 3 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we rebuild it free.'}
+  1:{eyebrow:'Step 1 of 2 — about 30 seconds', head:'Who are we talking to?', sub:''},
+  2:{eyebrow:'Step 2 of 2 — last one', head:'Do you have a website already?', sub:'Tap one — either way, we rebuild it free.'}
 };
 
 function readFields(){
@@ -496,6 +431,7 @@ function readFields(){
   state.biz   = $('f_biz').value.trim();
   state.phone = $('f_phone').value.trim();
   state.email = $('f_email').value.trim();
+  state.trade = TRADE;
 }
 function mark(wrapId, isBad){
   $(wrapId).classList.toggle('has-error', isBad);
@@ -514,11 +450,6 @@ function validateStep(n){
     var d = mark('w_email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email));
     ok = a && b && c && d;
   } else if(n===2){
-    var t = !!state.trade, j = !!state.jobs;
-    $('tradeErr').style.display = t ? 'none' : 'block';
-    $('jobsErr').style.display  = j ? 'none' : 'block';
-    ok = t && j;
-  } else if(n===3){
     /* Set REQUIRE_WEBSITE to false to make this question optional */
     var REQUIRE_WEBSITE = true;
     ok = !REQUIRE_WEBSITE || !!state.website;
@@ -561,10 +492,7 @@ Array.prototype.forEach.call(document.querySelectorAll('.step .go'), function(bt
   btn.addEventListener('click', function(){
     var next = +btn.getAttribute('data-next');
     if(!validateStep(next-1)) return;
-    if(next===3){
-      if(state.trade===NOT_A_FIT){ notAFit(); return; }
-      saveStarted();   /* "started" post (start-funnel tag -> new-lead SMS) now waits for the trade answer */
-    }
+    if(next===2) saveStarted();
     goStep(next);
   });
 });
@@ -608,7 +536,7 @@ function basePayload(){
   var p=utms();
   p.firstName=state.name; p.lastName=state.last;
   p.name=(state.name+' '+state.last).trim(); p.phone=state.phone; p.email=state.email;
-  p.businessName=state.biz; p.trade=state.trade; p.jobs_weekly=state.jobs;
+  p.businessName=state.biz; p.trade=state.trade;
   p.funnel='paid-lp'; p.source=SOURCE;
   return p;
 }
@@ -619,21 +547,6 @@ function saveStarted(){
   p.funnel_stage='started';
   p.demo_status='Not Sent';
   post(p);
-}
-
-/* Not a contractor: one post with funnel_stage 'not_a_fit' (api/lead.js tags it
-   not-a-fit only: no start-funnel, no funnel-done), NotAFit instead of Lead,
-   and a polite message instead of the calendar. */
-function notAFit(){
-  if(state.submitted) return;
-  state.submitted=true;   /* blocks saveStarted, submit and the pagehide beacon */
-  var p=basePayload();
-  p.funnel_stage='not_a_fit';
-  post(p);
-  track('NotAFit', {}, true);
-  $('screen-lp').classList.add('hidden');
-  $('screen-nofit').classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'auto'});
 }
 
 $('submitLead').addEventListener('click', function(){
