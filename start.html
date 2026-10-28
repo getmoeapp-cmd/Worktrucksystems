@@ -338,7 +338,7 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
       <p class="err" id="tradeErr" style="margin-top:8px">Please tap your trade</p>
     </div>
     <div class="qual" id="w_jobs">
-      <p class="qual-hd">About how many jobs do you do per week?</p>
+      <p class="qual-hd">How many jobs or calls do you get in a typical week?</p>
       <div class="chips" id="jobsChips">
         <button type="button" class="chip">0–2<span class="tick">✓</span></button>
         <button type="button" class="chip">3–5<span class="tick">✓</span></button>
@@ -387,6 +387,14 @@ h1,h2{font-family:var(--display);font-weight:400;text-transform:uppercase;letter
   </div>
 </div>
 
+<div id="screen-lowvol" class="cal hidden">
+  <div class="wrap">
+    <p class="eyebrow">Thanks for checking us out</p>
+    <h1>Come back when you're getting more calls.</h1>
+    <p class="cal-sub">WorkTruck works best for contractors who already get a few calls a week. Once that's you, we'd love to show you the system.</p>
+  </div>
+</div>
+
 <!-- ════════ SCREEN 2 — CALENDAR ════════ -->
 <div id="screen-cal" class="cal hidden">
   <div class="wrap">
@@ -421,7 +429,7 @@ var LOW_VOLUME   = '0–2';
 var SOURCE       = 'Facebook Ads — /start.html';
 /* ══════════════════════════════════════════════════ */
 
-var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', jobs:'', website:'', notFit:false, started:false, submitted:false };
+var state = { name:'', last:'', biz:'', phone:'', email:'', trade:'', jobs:'', website:'', notFit:false, blocked:false, started:false, submitted:false };
 
 function $(id){ return document.getElementById(id); }
 function track(ev, params, custom){
@@ -572,6 +580,7 @@ Array.prototype.forEach.call(document.querySelectorAll('.step .go'), function(bt
     if(!validateStep(next-1)) return;
     if(next===3){
       if(state.trade===NOT_A_FIT){ notAFit(); return; }
+      if(state.jobs===LOW_VOLUME){ lowVolume(); return; }   /* 0–2: saved, tracked, never shown the calendar */
       saveStarted();   /* "started" post (start-funnel tag -> new-lead SMS) now waits for the trade answer */
     }
     goStep(next);
@@ -646,8 +655,29 @@ function notAFit(){
   window.scrollTo({top:0,behavior:'auto'});
 }
 
-$('submitLead').addEventListener('click', function(){
+/* 0–2 jobs/calls a week: the contact and every answer are saved (api/lead.js tags
+   low-volume only: no start-funnel, no funnel-done, so no booking follow-up texts),
+   the form submit is tracked as Lead, and they see a message instead of the calendar.
+   state.blocked also stops showCalendar() and the pagehide beacon. */
+function lowVolume(){
   if(state.submitted) return;
+  state.submitted=true;
+  state.blocked=true;
+  state.notFit=true;      /* keeps the pagehide 'complete' beacon quiet */
+  var p=basePayload();
+  p.website_status = state.website;
+  p.funnel_stage='low_volume';
+  p.demo_status='Not Sent';
+  post(p);
+  track('Lead', {content_name: TRADE});
+  track('LowVolumeBlocked', {}, true);
+  $('screen-lp').classList.add('hidden');
+  $('screen-lowvol').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'auto'});
+}
+
+$('submitLead').addEventListener('click', function(){
+  if(state.submitted || state.blocked || state.jobs===LOW_VOLUME) return;
   if(!validate()) return;
 
   var btn=$('submitLead');
@@ -671,7 +701,7 @@ $('submitLead').addEventListener('click', function(){
 
 /* Safety net — if they bail between tapping submit and the post finishing */
 window.addEventListener('pagehide', function(){
-  if(!state.submitted || !state.email || state.notFit || state.trade===NOT_A_FIT) return;
+  if(!state.submitted || !state.email || state.notFit || state.blocked || state.trade===NOT_A_FIT) return;
   try{
     var p=basePayload();
     p.website_status=state.website;
@@ -690,6 +720,7 @@ function calendarSrc(){
   return CALENDAR_URL + '?' + q.toString();
 }
 function showCalendar(){
+  if(state.blocked || state.jobs===LOW_VOLUME || state.trade===NOT_A_FIT) return;   /* the block cannot be skipped from the page */
   $('screen-lp').classList.add('hidden');
   var frame=$('calFrame');
   frame.innerHTML='<iframe src="'+calendarSrc()+'" title="Pick a demo time" scrolling="no"></iframe>';
