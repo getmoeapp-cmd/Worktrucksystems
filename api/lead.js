@@ -62,7 +62,19 @@ export default async function handler(req, res) {
   var tags;
   /* Belt and braces: a 'Not a contractor' trade is never a funnel lead, even if a
      stray 'complete' post (e.g. the pagehide beacon) arrives for it. */
-  if (body.funnel_stage === 'not_a_fit' || body.trade === 'Not a contractor') {
+  const isNotContractor = body.funnel_stage === 'not_a_fit' || body.trade === 'Not a contractor';
+  /* /start (paid-lp) must always carry a valid jobs answer, except for 'Not a contractor'. */
+  const JOBS_OK = ['0–2', '3–5', '6–15', '16+'];
+  if (body.funnel === 'paid-lp' && !isNotContractor && !JOBS_OK.includes(body.jobs_weekly)) {
+    return res.status(400).json({ ok: false, error: 'jobs_weekly required' });
+  }
+  /* 0–2 from /start is blocked from the calendar: whatever stage arrives, they get
+     low-volume only (never start-funnel/funnel-done, which start the follow-up texts). */
+  const isLowVolume = body.funnel === 'paid-lp' && !isNotContractor &&
+    (body.funnel_stage === 'low_volume' || body.jobs_weekly === '0–2' || body.jobs_weekly === '0-2');
+  if (isLowVolume) {
+    tags = ['low-volume', 'paid-ad-lead'];
+  } else if (isNotContractor) {
     /* Non-contractor from /start: never start-funnel (that tag sends the
        new-lead SMS) and never funnel-done (that creates the opportunity). */
     tags = ['not-a-fit'];
